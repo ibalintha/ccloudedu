@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+    <!-- 用户登录 -->
+	<package name="userLogin" extends="struts-default" namespace="/login">
+		<action name="login_*" class="system.action.LoginActionCh" method="{1}">
+			<!--<result name="success" type="redirect">/system/layout_layout.do</result> -->
+			<result name="success" type="redirectAction">   
+             <param name="actionName">layout_layout.do</param>  
+             <param name="namespace">/system</param>   
+        	</result>  
+			<result name="update">/login.jsp</result>
+			<result name="logout">/login.jsp</result>
+		</action>
+	</package>
+	<!-- 系统管理 -->
+	<package name="system" extends="default" namespace="/system">
+	     <!-- 页面布局 -->
+	     <action name="layout_*" class="system.action.LayoutActionCh" method="{1}">
+	          <result name="layout">/WEB-INF/jsp/system/layout/layoutCh.jsp</result>
+	          <result name="onlineUser">/WEB-INF/jsp/system/layout/onlineUser.jsp</result>
+	          <result name="leaveAMessage">/WEB-INF/jsp/system/layout/messageBoard.jsp</result>
+	          <result name="onlineChart">/WEB-INF/jsp/chat/chat.jsp</result>
+	     </action>
+	     
+	     <!--桌面设置  -->
+	      <action name="desksetting_*" class="system.action.DeskSettingActionCh" method="{1}">
+	          <result>/WEB-INF/jsp/system/layout/desksetting/desksetting.jsp</result>
+	          <result name="msgboard">/WEB-INF/jsp/system/layout/desksetting/msgboard.jsp</result>
+	          <result name="myword">/WEB-INF/jsp/system/layout/desksetting/myword.jsp</result>
+	          <result name="news">/WEB-INF/jsp/system/layout/desksetting/news.jsp</result>
+	          <result name="gonggao">/WEB-INF/jsp/system/layout/desksetting/gonggao.jsp</result>
+	          <result name="peixun">/WEB-INF/jsp/system/layout/desksetting/peixun.jsp</result>
+	          <result name="huodong">/WEB-INF/jsp/system/layout/desksetting/huodong.jsp</result>
+	          <result name="xiance">/WEB-INF/jsp/system/layout/desksetting/xiance.jsp</result>
+	     </action>
+	     
+	    <!-- 用户管理 -->
+	    <action name="user_*" class="system.action.UserActionCh" method="{1}">
+	         <result name="update">/WEB-INF/jsp/system/user/userDetail.jsp</result>
+	         <result name="list">/WEB-INF/jsp/system/user/listUser.jsp</result>
+	         <result name="add">/WEB-INF/jsp/system/user/addUser.jsp</result>
+	         <result name="tree">/WEB-INF/jsp/system/user/userTree.jsp</result>
+	         <result name="setDesk">/WEB-INF/jsp/system/user/setDesk.jsp</result>
+	         <result name="chooseUser">/WEB-INF/jsp/system/user/chooseUser.jsp</result>
+	         <result name="userBasicInfo">/WEB-INF/jsp/system/user/userBasicInfo.jsp</result>
+	         <result name="updatePassword">/WEB-INF/jsp/system/user/updatePssword.jsp</result>
+	         <result name="userPicture">/WEB-INF/jsp/system/user/userPicture.jsp</result>
+	         <result name="showUserInfo">/WEB-INF/jsp/system/user/showUserInfo.jsp</result>
+	         <result name="setInitPwd">/WEB-INF/jsp/system/user/setUserInitPwd.jsp</result>
+	         <result name="showSearch">/WEB-INF/jsp/system/user/searchUser.jsp</result>
+	    </action>
+	    
+	    <!-- 用户导出action -->
+	    <action name="userreport_*" class="system.action.report.UserReportAction"  method="{1}">
+	         <result name="toImportUser">/WEB-INF/jsp/system/user/import/importUser.jsp</result>
+	         <result name="exportExcel">/WEB-INF/jsp/system/user/export/exportUserExcel.jsp</result>
+	         <result name="exportWord">/WEB-INF/jsp/system/user/export/exportUserWord.jsp</result>
+	         <result name="renderPdf">/WEB-INF/jsp/system/user/export/exportUserPdf.jsp</result>
+	         <result name="exportWordDetail">/WEB-INF/jsp/system/user/export/exportUserWordDetail.jsp</result>
+	         <result name="renderPdfDetail">/WEB-INF/jsp/system/user/export/exportUserPdfDetail.jsp</result>
+	    </action>
+	    
+	    <!-- 部门管理 -->
+	    <action name="dept_*" class="system.action.DeptAction" method="{1}">
+	        <result name="layout">/WEB-INF/jsp/system/dept/deptLayout.jsp</result>
+	        <result name="update">/WEB-INF/jsp/system/dept/deptDetail.jsp</result>
+	        <result name="success">/WEB-INF/jsp/system/dept/listDept.jsp</result>
+	        <result name="add">/WEB-INF/jsp/system/dept/addDept.jsp</result>
+	        <result name="tree">/WEB-INF/jsp/system/dept/deptTree.jsp</result>
+	        <result name="chooseDept">/WEB-INF/jsp/system/dept/chooseDept.jsp</result>
+	        <result name="toImportDept">/WEB-INF/jsp/system/dept/import/importDept.jsp</result>
+	        <!--<result name="left" type="freemarker">/system/dept/left.html</result> -->
+	     </action>
+	    <!-- 角色管理 -->
+	    <action name="role_*" class="system.action.RoleAction" method="{1}">
+	        <result name="layout">/WEB-INF/jsp/system/role/roleLayout.jsp</result>
+	        <result name="update">/WEB-INF/jsp/system/role/roleDetail.jsp</result>
+	        <result name="show">/WEB-INF/jsp/system/role/showFunc.jsp</result>
+	        <result name="success">/WEB-INF/jsp/system/role/listRole.jsp</result>
+	        <result name="add">/WEB-INF/jsp/system/role/addRole.jsp</result>
+	        <result name="addAuth">/WEB-INF/jsp/system/role/addRoleAuth.jsp</result>
+	        <result name="tree">/WEB-INF/jsp/system/role/roleTree.jsp</result>
+	        <result name="showSearch">/WEB-INF/jsp/system/role/searchRole.jsp</result>
+	        </action>
+	    <!-- 菜单管理 -->
+	    <action name="menu_*" class="system.action.MenuAction" method="{1}">
+	        <result name="layout">/WEB-INF/jsp/system/menu/menuLayout.jsp</result>
+	        <result name="update">/WEB-INF/jsp/system/menu/menuDetail.jsp</result>
+	        <result name="success">/WEB-INF/jsp/system/menu/listMenu.jsp</result>
+	        <result name="add">/WEB-INF/jsp/system/menu/addMenu.jsp</result>
+	        <result name="tree">/WEB-INF/jsp/system/menu/menuTree.jsp</result>
+	        <result name="leftNavigation">/WEB-INF/jsp/system/layout/leftNavigation.jsp</result>
+	        <!--
+	        <result name="left" type="freemarker">/system/menu/left.html</result>
+	    -->
+	    </action>
+	    
+	    <!-- 权限管理 -->
+	    <action name="func_*" class="system.action.FuncAction" method="{1}">
+	        <result name="layout">/WEB-INF/jsp/system/function/funcLayout.jsp</result>
+	        <result name="update">/WEB-INF/jsp/system/function/funcDetail.jsp</result>
+	        <result name="success">/WEB-INF/jsp/system/function/listFunction.jsp</result>
+	        <result name="add">/WEB-INF/jsp/system/function/addFunction.jsp</result>
+	        <result name="tree">/WEB-INF/jsp/system/function/funcTree.jsp</result>
+	        <result name="sort">/WEB-INF/jsp/system/function/sortFunction.jsp</result>
+	        <result name="leftNavigation">/WEB-INF/jsp/system/layout/leftNavigation.jsp</result>
+	    </action>
+	   
+	    <!-- 用户登录日志 -->
+	     <action name="userlog_*" class="system.action.UserLoginLogAction" method="{1}">
+	         <result name="list">/WEB-INF/jsp/system/log/userlog/listUserLog.jsp</result>
+	    </action>
+	     <!-- 系统访问录日志 -->
+	     <action name="accesslog_*" class="system.action.AccessLogAction" method="{1}">
+	         <result name="list">/WEB-INF/jsp/system/log/accesslog/listAccesslog.jsp</result>
+	         <result name="detail">/WEB-INF/jsp/system/log/accesslog/detailAccesslog.jsp</result>
+	    </action>
+	    <!-- 数据字典 -->
+	    <action name="datadictionary_*" class="system.action.DataDictionaryAction" method="{1}">
+	        <result name="tree">/WEB-INF/jsp/system/dataDictionary/dataDictionaryTree.jsp</result>
+	        <result name="list">/WEB-INF/jsp/system/dataDictionary/listDataDictionary.jsp</result>
+	        <result name="add">/WEB-INF/jsp/system/dataDictionary/addDataDictionary.jsp</result>
+	        <result name="update">/WEB-INF/jsp/system/dataDictionary/detailDataDictionary.jsp</result>
+	     </action>
+	     
+	     <!-- 系统设置 -->
+	     <action name="systemSetting_*" class="system.action.SystemSettingAction" method="{1}">
+	        <result name="loginRuleSetting">/WEB-INF/jsp/system/systemSetting/loginRuleSetting.jsp</result>
+	        <result name="loginLogRuleSetting">/WEB-INF/jsp/system/systemSetting/loginLogRuleSetting.jsp</result>
+	        <result name="accessLogRuleSetting">/WEB-INF/jsp/system/systemSetting/accessLogRuleSetting.jsp</result>
+	        <result name="mailServerSetting">/WEB-INF/jsp/system/systemSetting/mailServerSetting.jsp</result>
+	     </action>
+	     
+	     <!-- 系统sql、hql语句管理 -->
+	     <action name="querySqlHql_*" class="system.action.querySqlHqlAction" method="{1}">
+	        <result name="menuTree">/WEB-INF/jsp/system/queryHqlSql/menuTree.jsp</result>
+	        <result name="add">/WEB-INF/jsp/system/queryHqlSql/add.jsp</result>
+	        <result name="detail">/WEB-INF/jsp/system/queryHqlSql/detail.jsp</result>
+	        <result name="list">/WEB-INF/jsp/system/queryHqlSql/list.jsp</result>
+	     </action>
+	     
+	     <!-- 日志管理 -->
+	     <action name="log_*" class="system.action.LogAction" method="{1}">
+	        <result name="list">/WEB-INF/jsp/system/log/listLog.jsp</result>
+	     </action>
+	     <!-- 常用报表设置 -->
+	     <action name="report_*" class="system.action.ReportAction" method="{1}">
+	        <result name="list">/WEB-INF/jsp/system/report/listReport.jsp</result>
+	     </action>
+
+	     
+	     <!-- 数据备份 -->
+	     <action name="backup_*" class="system.action.BackupAction" method="{1}">
+	        <result name="list">/WEB-INF/jsp/system/backup/addBackup.jsp</result>
+	     </action>
+	     
+	     <!-- 数据导入 -->
+	     <action name="import_*" class="system.action.ImportAction" method="{1}">
+	        <result name="list">/WEB-INF/jsp/system/import/listImport.jsp</result>
+	     </action>
+	     
+	     <!-- 按钮管理 -->
+	     <action name="button_*" class="system.action.ButtonAction" method="{1}">
+	        <result name="list">/WEB-INF/jsp/system/button/listButton.jsp</result>
+	        <result name="add">/WEB-INF/jsp/system/button/addButton.jsp</result>
+	     </action>
+	     
+	     <!-- 模型权限管理 -->
+	     <action name="model_*" class="system.action.ModelAction" method="{1}">
+	     </action>
+	     
+	     <!-- 权限范围管理 -->
+	     <action name="range_*" class="system.action.RangeAction" method="{1}">
+	     	<result name="list">/WEB-INF/jsp/system/range/listRange.jsp</result>
+	     	<result name="add">/WEB-INF/jsp/system/range/addRange.jsp</result>
+	     	<result name="update">/WEB-INF/jsp/system/range/rangeDetail.jsp</result>
+	     	<result name="showSearch">/WEB-INF/jsp/system/range/searchRange.jsp</result>
+	     </action>
+	     
+	     
+	</package>
+</struts>

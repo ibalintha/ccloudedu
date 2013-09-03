@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+	
+<struts>
+    <!-- 后台-->
+	<package name="default" extends="struts-default">
+			<!-- 
+			<result-types>
+				<result-type name="json" class="com.ccloudedu.system.result.JSONResult"/>
+			 </result-types>
+			 -->
+			<interceptors>
+			   <interceptor name="loginInterceptor" class="com.ccloudedu.base.web.struts2.interceptor.LoginInterceptorCh"></interceptor>
+			   <interceptor name="authInterceptor" class="com.ccloudedu.base.web.struts2.interceptor.AuthInterceptorCh"></interceptor>
+			   <interceptor name="myFileUploadInterceptor" class="com.ccloudedu.base.web.struts2.interceptor.MyFileUploadInterceptor"></interceptor>
+			   <interceptor name="actionAccessLogInterceptor" class="com.ccloudedu.base.web.struts2.interceptor.ActionAccessLogInterceptorCh"></interceptor>
+			   <interceptor-stack name="ccloudeduInterceptorStack">
+			          <!-- extends  paramsPrepareParamsStack-->
+				      <interceptor-ref name="paramsPrepareParamsStack"></interceptor-ref>
+				      
+				      <!-- customer interceptor stack -->
+				      <interceptor-ref name="loginInterceptor"></interceptor-ref>
+				      <interceptor-ref name="actionAccessLogInterceptor"></interceptor-ref>
+				      <interceptor-ref name="authInterceptor"></interceptor-ref>
+				      <interceptor-ref name="myFileUploadInterceptor"></interceptor-ref>
+			   </interceptor-stack>
+			</interceptors>
+			
+			<!-- set  ccloudeduInterceptorStack to default-->
+			<default-interceptor-ref name="ccloudeduInterceptorStack"></default-interceptor-ref>
+			
+			<!-- 全局转发 -->
+			<global-results>
+			    <result name="layout">/system/layout_layout.do</result>
+			    <result name="login">/login.jsp</result>
+			    <!-- 登录超时 -->
+			    <result name="sessionTimeout">/sessionTimeout.jsp</result>
+			    <!-- 访问权限 -->
+			    <result name="noPermession">/noPermession.jsp</result>
+			</global-results>
+	</package>
+	 
+	<!--system-->
+	<include file="resources/struts/struts-system.xml"/>
+	<!-- oa -->
+	<include file="resources/struts/struts-oa.xml"/>
+	<!-- workflow -->
+	<include file="resources/struts/struts-wf.xml"/>
+	<!-- cms -->
+	<include file="resources/struts/struts-cms.xml"/>
+	<!-- student -->
+	<include file="resources/struts/struts-student.xml"/>
+	<!-- underlying -->
+	<include file="resources/struts/struts-underlying.xml"/>
+	
+	<!-- report -->
+	<include file="resources/struts/struts-report.xml"/>
+	
+</struts>

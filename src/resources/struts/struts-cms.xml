@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<package name="cms" extends="default" namespace="/cms">
+	     <!-- cms频道模型 -->
+	     <action name="channelModel_*" class="cms.ChannelModelAction" method="{1}">
+	        <result name="list">/WEB-INF/jsp/cms/channelModel/list.jsp</result>
+	        <result name="add">/WEB-INF/jsp/cms/channelModel/add.jsp</result>
+	     </action>
+	     <!-- 频道 -->
+	     <action name="channel_*" class="cms.ChannelAction" method="{1}">
+	        <result name="tree">/WEB-INF/jsp/cms/channel/channelTree.jsp</result>
+	        <result name="left">/WEB-INF/jsp/cms/channel/left.jsp</result>
+	        <result name="list">/WEB-INF/jsp/cms/channel/listChannel.jsp</result>
+	        <result name="add">/WEB-INF/jsp/cms/channel/addChannel.jsp</result>
+	        <result name="update">/WEB-INF/jsp/cms/channel/channelDetail.jsp</result>
+	     </action>
+	     <!-- 模板 -->
+	     <action name="templet_*" class="cms.TempletAction" method="{1}">
+	        <result name="tree">/WEB-INF/jsp/cms/templet/templetTree.jsp</result>
+	        <result name="list">/WEB-INF/jsp/cms/templet/listTemplet.jsp</result>
+	        <result name="add">/WEB-INF/jsp/cms/templet/addTemplet.jsp</result>
+	        <result name="update">/WEB-INF/jsp/cms/templet/templetDetail.jsp</result>
+	     </action>
+	     <!-- 文章属性 -->
+	     <action name="articleAttr_*" class="cms.ArticleAttrAction" method="{1}">
+	         <result name="list">/WEB-INF/jsp/cms/articleAttr/list.jsp</result>
+	         <result name="add">/WEB-INF/jsp/cms/articleAttr/add.jsp</result>
+	     </action>
+	     <!-- 文章 -->
+	     <action name="article_*" class="cms.ArticleAction" method="{1}">
+	        <result name="tree">/WEB-INF/jsp/cms/article/channelTree.jsp</result>
+	        <result name="left">/WEB-INF/jsp/cms/article/left.jsp</result>
+	        <result name="list">/WEB-INF/jsp/cms/article/list.jsp</result>
+	        <result name="add">/WEB-INF/jsp/cms/article/add.jsp</result>
+	        <result name="addpic">/WEB-INF/jsp/cms/article/addpic.jsp</result>
+	        <result name="managerHomePage">/WEB-INF/jsp/cms/article/managerHomePage.jsp</result>
+	     </action>
+	</package>
+</struts>

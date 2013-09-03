@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<queryMapping>
+      <!-- 查询栏目模型 -->
+	  <query name="cms.findChannelModels">
+	    <hql>
+		    <![CDATA[
+		       select cm from CmsChannelModel as cm order by cm.createTime asc
+		    ]]>
+	    </hql>
+	  </query>
+	    <!-- 查询栏目 -->
+	  <query name="cms.findChannels">
+	    <hql>
+		    <![CDATA[
+		       from CmsChannel as c order by c.createTime asc
+		    ]]>
+	    </hql>
+	  </query>
+	
+	  <query name="cms.findChannelsByParentId">
+	     <hql>
+		    <![CDATA[
+		       select c from CmsChannel as c where c.cmsChannel.id=:parentId order by c.createTime asc
+		    ]]>
+	     </hql>
+	  </query>
+
+	   <!-- 模板 -->
+	  <query name="cms.findTemplets">
+	    <hql>
+		    <![CDATA[
+		       from CmsTemplet as ct order by ct.createTime asc
+		    ]]>
+	    </hql>
+	  </query>
+	  
+	  <query name="cmsfindTempletsByParentId">
+	    <hql>
+		    <![CDATA[
+		        select ct from CmsTemplet as ct where ct.cmsTemplet.id=:parentId order by ct.createTime asc
+		    ]]>
+	    </hql>
+	  </query>
+	  
+	   <!-- 查询栏目模型 -->
+	  <query name="cms.findArticleAttrs">
+	    <hql>
+		    <![CDATA[
+		       select attr from CmsArticleAttr as attr order by attr.createTime asc
+		    ]]>
+	    </hql>
+	  </query>
+</queryMapping>

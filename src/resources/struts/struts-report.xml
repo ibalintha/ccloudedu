@@ -1,0 +1,13 @@
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts> 
+	<package name="report" extends="struts-default" namespace="/report">
+		<action name="report_*"  class="report.action.ReportAction" method="{1}">
+		 <result name="exportByclass">/WEB-INF/jsp/report/reporthtml.jsp</result>	    	 
+	     <result name="reportlayout">/WEB-INF/jsp/report/reportlayout.jsp</result>
+		 <result name="exportmanager">/WEB-INF/jsp/report/stuExportManage.jsp</result>
+		</action> 
+	</package>
+</struts>

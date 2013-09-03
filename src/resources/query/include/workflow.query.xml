@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<queryMapping>
+      <!-- 查询流程执行人 ,适用于所有的流程-->
+      <query name="workflow.findWfExecutor">
+       <hql>
+          <![CDATA[
+              select new com.jroo.workflow.common.entity.WfExecutor
+              (wfes.id as wfExecuteId,user.id as userId,user.userName as userName,userRole.sysRole.roleName as roleName,wfes.transition) 
+              from SysUser as user,SysUserRole as userRole,WfExecuteSetting as wfes 
+              where user.id= userRole.sysUser.id 
+              and userRole.sysRole.id=wfes.nextRoleId 
+              and wfes.curRoleId=:roleId 
+              and wfes.wfCat=:wfCat 
+              <#if operateType??>
+	              and wfes.operateType=:operateType 
+	          </#if>
+	          order by user.createTime asc
+          ]]>
+       </hql>
+     </query>
+     
+      <!-- 查询流程执行设置-->
+      <query name="workflow.findWfExecuteSettings">
+       <hql>
+          <![CDATA[from WfExecuteSetting where wfCat=:wfCat]]>
+       </hql>
+     </query>
+     
+      <!-- 删除流程执行设置-->
+      <query name="workflow.deleteWfExecuteSettings">
+       <hql>
+          <![CDATA[delete from WfExecuteSetting where wfCat=:wfCat]]>
+       </hql>
+     </query>
+    
+      <!-- 获得当前流程，指定用户的活动中的任务-->
+      <query name="workflow.findPersonalTasks">
+       <hql>
+          <![CDATA[
+              select task from org.jbpm.pvm.internal.task.TaskImpl as task 
+              where task.processInstance.id=:processInstanceId 
+              and task.assignee=:assignee 
+              and task.state!=:state
+          ]]>
+       </hql>
+     </query>
+     
+      <!-- 请假流程，获得请假单,包括未完成的或已完成的 -->
+	  <query name="workflow.findTasks">
+	    <sql>
+		    <![CDATA[
+		       SELECT histtask.CREATE_ task_create_dt,et.user_name task_user_name,et.name_ task_name,
+		       procinst.PROCDEFID_ process_definition_id,procinst.ID_ process_instance_id,
+		       lea.leave_type,lea.leave_time,lea.leave_end_time,lea.leave_content,lea.id,lea.leave_day_number,LEA.LEAVE_USER_ID  LEAVE_USER_ID, lea.create_time  create_time 
+		       FROM wf_leave lea 
+		       <#--从历史表中取到我过去的任务-->
+		       join jbpm4_hist_procinst procinst on procinst.key_=lea.id
+		       join jbpm4_hist_task histtask on histtask.EXECUTION_=procinst.id_ and histtask.ASSIGNEE_=LEA.LEAVE_USER_ID
+		       <#--当前任务状态：当前审核人-->
+		       left join (
+		           select u.user_name,task.name_,exe.key_ 
+		           from jbpm4_task task 
+		           join jbpm4_execution exe on exe.id_=task.EXECUTION_ID_ and exe.state_!='ended' 
+		           join sys_user u on u.id=task.ASSIGNEE_ 
+		           where task.state_='open'
+	            ) et on et.key_=lea.id  
+	            WHERE  LEAVE_USER_ID=:userId 
+	            <#if orderattr??>
+	              order by ${orderattr} ${ordertype}
+	              <#else>
+	               order by create_time desc
+	            </#if>
+		    ]]>
+	    </sql>
+	  </query>
+	  
+	   <!-- 请假流程，获得待审核的请假单 -->
+	  <query name="findAuditingTasks">
+	    <sql>
+		    <![CDATA[
+		        SELECT  * from  jbpm4_auditing_tasks_v  where  jbpm4_auditing_tasks_v.id=:userId 
+		        order by task_create_dt  
+		    ]]>
+	    </sql>
+	  </query>
+	  
+	   <!-- 请假流程，获得待已完成的请假单 -->
+	  <query name="findHistoryTasks">
+	    <sql>
+		    <![CDATA[
+		        SELECT  * from  jbpm4_history_tasks_v where jbpm4_history_tasks_v.id=:userId
+		         order by leave_time  
+		    ]]>
+	    </sql>
+	  </query>
+</queryMapping>

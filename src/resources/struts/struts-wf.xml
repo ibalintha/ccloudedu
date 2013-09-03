@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<package name="workflow" extends="default" namespace="/workflow">
+	     <!-- 工作流部署删除 -->
+	     <action name="deploy_*" class="workflow.common.action.WorkFlowAction" method="{1}">
+	         <result name="deploy">/WEB-INF/jsp/workflow/deploy.jsp</result>
+	         <result name="prcessPic">/WEB-INF/jsp/workflow/prcesspic.jsp</result>
+	     </action>
+	     <action name="wfsetting_*" class="workflow.common.action.WorkFlowSettingAction" method="{1}">
+	         <result name="list">/WEB-INF/jsp/workflow/wfsetting.jsp</result>
+	     </action>
+	     <action name="leave_*" class="workflow.leave.action.LeaveAction" method="{1}">
+	         <result name="list">/WEB-INF/jsp/workflow/leave/listLeave.jsp</result>
+	         <result name="listAudit">/WEB-INF/jsp/workflow/leave/listLeaveAudit.jsp</result>
+	          <result name="listHistory">/WEB-INF/jsp/workflow/leave/listLeaveHistory.jsp</result>
+	         <result name="add">/WEB-INF/jsp/workflow/leave/addLeave.jsp</result>
+	         <result name="detail">/WEB-INF/jsp/workflow/leave/detailLeave.jsp</result>
+	         <result name="detailAudit">/WEB-INF/jsp/workflow/leave/detailLeaveAudit.jsp</result>
+	     </action>
+	</package>
+	
+</struts>

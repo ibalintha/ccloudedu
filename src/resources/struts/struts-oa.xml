@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<package name="oa" extends="default" namespace="/oa">
+	     <!--内部短信 -->
+	     <action name="intenalMassage_*" class="oa.msg.action.IntenalMessageAction" method="{1}">
+	        <result name="list">/WEB-INF/jsp/oa/intenalMassage/listInMsg.jsp</result>
+	        <result name="add">/WEB-INF/jsp/oa/intenalMassage/addInMsg.jsp</result>
+	        <result name="update">/WEB-INF/jsp/oa/intenalMassage/detailInMsg.jsp</result>
+	        <result name="read">/WEB-INF/jsp/oa/intenalMassage/readInMsg.jsp</result>
+	     </action>
+	     <!-- 留言板 -->
+	     <action name="messageboard_*" class="oa.msg.action.MessageBoardAction" method="{1}">
+	         <result name="list">/WEB-INF/jsp/oa/messageboard/list.jsp</result>
+	         <result name="add">/WEB-INF/jsp/oa/messageboard/add.jsp</result>
+	     </action>
+	     <!-- 项目维护 -->
+	      <action name="project_*" class="oa.work.action.OaProjectAction" method="{1}">
+	         <result name="list">/WEB-INF/jsp/oa/project/list.jsp</result>
+	         <result name="add">/WEB-INF/jsp/oa/project/add.jsp</result>
+	         <result name="chooseProject">/WEB-INF/jsp/oa/project/chooseProject.jsp</result>
+	     </action>
+	     <!-- 项目阶段维护 -->
+	     <action name="projectSchedule_*" class="oa.work.action.OaProjectScheduleAction" method="{1}">
+	         <result name="schedule">/WEB-INF/jsp/oa/project/schedule.jsp</result>
+	         <result name="completedSchedule">/WEB-INF/jsp/oa/project/completedSchedule.jsp</result>
+	     </action>
+	     <!-- 工作日志 -->
+	     <action name="worklog_*" class="oa.work.action.OaWorkLogAction" method="{1}">
+	         <result name="list">/WEB-INF/jsp/oa/worklog/list.jsp</result>
+	         <result name="add">/WEB-INF/jsp/oa/worklog/add.jsp</result>
+	         <result name="detail">/WEB-INF/jsp/oa/worklog/detail.jsp</result>
+	     </action>
+	     <!-- 信息发布 -->
+	      <action name="article_*" class="oa.article.action.OaArticleAction" method="{1}">
+	         <result name="list">/WEB-INF/jsp/oa/article/list.jsp</result>
+	         <result name="add">/WEB-INF/jsp/oa/article/add.jsp</result>
+	         <result name="tree">/WEB-INF/jsp/oa/article/catgoryTree.jsp</result>
+	         
+	     </action>
+	</package>
+</struts>

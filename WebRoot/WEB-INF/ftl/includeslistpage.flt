@@ -1,0 +1,23 @@
+<#if page.hasPrevious>
+  <span><a href="${ctx}/${channel.path}/index_1.html">首页 </a></span>
+<#else>
+  <span>首页 </span>
+</#if>
+
+<#if page.hasPrevious>
+  <span><a href="${ctx}/${channel.path}/index_${page.previousPage}.html">上一页</a> </span>
+<#else>
+  <span>上一页 </span>
+</#if>
+			        
+<#if page.hasNext>
+  <span><a href="${ctx}/${channel.path}/index_${page.nextPage}.html">下一页</a></span>
+<#else>
+ <span>下一页</span> 
+</#if>
+		          
+<#if page.hasNext>
+  <span><a href="${ctx}/${channel.path}/index_${page.totalPage}.html">尾页</a></span> 
+<#else>
+<span>尾页</span> 
+</#if>

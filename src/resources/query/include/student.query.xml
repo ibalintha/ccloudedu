@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<queryMapping>
+    <!-- 按条件查询用户 -->
+    <query name="student.findStudents">
+       <hql>
+          <![CDATA[
+            select stud from ChStudent as stud 
+            where 1=1 
+            <#if chStudSchcode??>
+           		and stud.chStudSchcode like:chStudSchcode 
+	        </#if> 
+	        <#if chStudName??>
+	            and stud.chStudName like :chStudName
+	        </#if> 
+	        <#if chStudSex??>
+	            and stud.chStudSex like :chStudSex
+	        </#if>
+	        <#if chClasId??>
+	            and stud.chClasId = :chClasId
+	        </#if>
+	        <#if id??>
+	            and stud.id = :id
+	        </#if>
+	        order by stud.chStudSchcode desc
+          ]]>
+       </hql>
+    </query> 
+    
+    <!-- 按条件查询用户 -->
+    <query name="student.findStudents2">
+       <hql>
+          <![CDATA[
+            select stud from ChStudent as stud 
+            where 1=1 
+            <#if chStudSchcode??>
+           		and stud.chStudSchcode like:chStudSchcode 
+	        </#if> 
+	        <#if chStudName??>
+	            and stud.chStudName like :chStudName
+	        </#if> 
+	        <#if chStudSex??>
+	            and stud.chStudSex like :chStudSex
+	        </#if> 
+	        <#if chClasId??>
+	            and stud.chClasId in (
+	            	select a.id from ChClasstree a 
+	            where a.parentId<>1 and a.parentId = :chClasId )
+	        </#if>
+	        <#if id??>
+	            and stud.id = :id
+	        </#if>
+	        order by stud.chStudSchcode desc
+          ]]>
+       </hql>
+    </query> 
+    
+    <query name="student.updateclassid">
+	    <hql>
+		    <![CDATA[
+		         update ChStudent as csd set csd.chClasId =:chClasId where csd.id = :id
+		    ]]>
+	    </hql>
+	  </query>
+    
+    <!-- 按条件查询用户by -->
+    <query name="student.findStudentsBy">
+       <hql>
+          <![CDATA[
+            from ChStudent as stud 
+            where 1=1 
+            <#if ids??>
+           		and stud.id in (:ids) 
+	        </#if> 
+	        <#if orderattr??>
+	         order by  ${orderattr} 
+	        </#if>
+          ]]>
+       </hql>
+    </query> 
+    
+    <!-- 查询根据班级查学生的列表 -->
+     <query name="student.findStudentsByClassId">
+       <hql>
+          <![CDATA[
+		       select stud from ChStudent as stud 
+		       where 1=1 
+	 			<#if chStudSchcode??>
+	           		and stud.chStudSchcode =:chStudSchcode
+		        </#if> 
+		      	<#if chClasId??>
+		             and stud.chClasId=:chClasId
+		       </#if>
+	
+		       order by stud.chStudSchcode desc
+          ]]>
+       </hql>
+    </query>	
+	
+    <query name="student.updatechStudSchcode">
+	    <hql>
+		    <![CDATA[
+		         update ChStudent as cs set cs.chStudSchcode=:chStudSchcode where cs.id =:id 
+		    ]]>
+	    </hql>
+	</query>
+	
+	<!-- 学籍管理的查询脚本   Pescadito -->
+	 <!-- 按条件查询用户：chStudSchcode表示学号， chStudName表示学生姓名-->
+    <query name="enrolment.findEnrolments">
+       <hql>
+          <![CDATA[
+            from ChSchoolroll as sr 
+            where 1=1 
+            <#if chScroSchcode??>
+           		and sr.chScroSchcode like:chScroSchcode 
+	        </#if> 
+	        <#if chScroName??>
+	            and sr.chScroName like:chScroName
+	        </#if> 
+	        <#if chClasId??>
+	            and sr.chClasId = :chClasId
+	        </#if>
+	        <#if id??>
+	            and sr.id = :id
+	        </#if>
+	        order by sr.chScroSchcode desc
+          ]]>
+       </hql>
+    </query> 
+    
+    <!-- 按条件查询用户 -->
+    <query name="enrolment.findEnrolments2">
+       <hql>
+          <![CDATA[
+            from ChSchoolroll as sr 
+            where 1=1 
+            <#if chScroSchcode??>
+           		and sr.chScroSchcode like:chScroSchcode 
+	        </#if> 
+	        <#if chScroName??>
+	            and sr.chScroName like:chScroName
+	        </#if> 
+	        <#if chClasId??>
+	            and sr.chClasId in (
+	            	select a.id from ChClasstree a 
+	            where a.parentId<>1 and a.parentId = :chClasId )
+	        </#if>
+	        <#if id??>
+	            and sr.id = :id
+	        </#if>
+	        order by sr.chScroSchcode desc
+          ]]>
+       </hql>
+    </query> 
+    <!-- 根据学籍id查询学生的家庭成员信息-->
+    <query name="enrolment.findFamily" >
+       <hql>
+          <![CDATA[
+            from ChFamily as cf 
+            where 1=1 
+            <#if chScroId??>
+           		and cf.chScroId like:chScroId 
+	        </#if>
+	         order by cf.chScroId desc
+          ]]>
+       </hql>
+    </query> 
+    <!-- 根据家庭信息id删除家庭信息记录 -->
+    <query name="enrolment.deleteFamily" >
+       <hql>
+          <![CDATA[
+            delete from ChFamily as cf 
+            where 1=1 
+            <#if familyId??>
+           		and cf.id like:familyId 
+	        </#if>
+	         order by cf.id desc
+          ]]>
+       </hql>
+    </query> 
+    <!-- 根据学籍id来删除记录 -->
+    <query name="enrolment.deleteFamilyScroId" >
+       <hql>
+          <![CDATA[
+            delete from ChFamily as cf 
+            where 1=1 
+            <#if scroId??>
+           		and cf.chScroId like:scroId 
+	        </#if>
+	         order by cf.chScroId desc
+          ]]>
+       </hql>
+    </query>    
+    <!-- 根据学籍id查询学生的评论信息 -->
+    <query name="enrolment.findComment" >
+       <hql>
+          <![CDATA[
+            from ChComment as cc 
+            where 1=1 
+            <#if chScroId??>
+           		and cc.chScroId like:chScroId 
+	        </#if>
+	         order by cc.chScroId desc
+          ]]>
+       </hql>
+    </query>
+    <!-- 根据评论信息id删除学生评论信息 --> 
+    <query name="enrolment.deleteComment" >
+       <hql>
+          <![CDATA[
+            delete from ChComment as cc 
+            where 1=1 
+            <#if commentId??>
+           		and cc.id like:commentId 
+	        </#if>
+	         order by cc.id desc
+          ]]>
+       </hql>
+    </query> 
+    <!-- 根据学籍id来删除记录 -->
+    <query name="enrolment.deleteScroId" >
+       <hql>
+          <![CDATA[
+            delete from ChComment as cc 
+            where 1=1 
+            <#if scroId??>
+           		and cc.chScroId like:scroId 
+	        </#if>
+	         order by cc.chScroId desc
+          ]]>
+       </hql>
+    </query> 
+    <!-- 根据学籍id查询学籍信息中的家访信息 -->
+    <query name="enrolment.findHomeVisite" >
+       <hql>
+          <![CDATA[
+            from ChHomeVisite as cv 
+            where 1=1 
+            <#if chScroId??>
+           		and cv.chScroId like:chScroId 
+	        </#if>
+	         order by cv.chScroId desc
+          ]]>
+       </hql>
+    </query>
+    <!-- 根据学籍id来删除家访记录 -->
+    <query name="enrolment.deleteHVScroId" >
+       <hql>
+          <![CDATA[
+            delete from ChHomeVisite as cv 
+            where 1=1 
+            <#if scroId??>
+           		and cv.chScroId like:scroId 
+	        </#if>
+	         order by cv.chScroId desc
+          ]]>
+       </hql>
+    </query> 
+    <!-- 根据学籍信息中的学籍信息id查询学生的其他信息 -->
+    <query name="enrolment.findOtherInfo" >
+       <hql>
+          <![CDATA[
+            from ChOtherInfo as co 
+            where 1=1 
+            <#if chScroId??>
+           		and co.chScroId like:chScroId 
+	        </#if>
+	         order by co.chScroId desc
+          ]]>
+       </hql>
+    </query>
+    <!-- 根据学籍id来删除其他信息 -->
+    <query name="enrolment.deleteOtherScroId" >
+       <hql>
+          <![CDATA[
+            delete from ChOtherInfo as co 
+            where 1=1 
+            <#if scroId??>
+           		and co.chScroId like:scroId 
+	        </#if>
+	         order by co.chScroId desc
+          ]]>
+       </hql>
+    </query>   
+    <!-- 根据学籍信息中的学籍信息id查询学生的职务信息 -->
+    <query name="enrolment.findPosition" >
+       <hql>
+          <![CDATA[
+            from ChPosition as cp 
+            where 1=1 
+            <#if chScroId??>
+           		and cp.chScroId like:chScroId 
+	        </#if>
+	         order by cp.chScroId desc
+          ]]>
+       </hql>
+    </query>
+   <!-- 根据学籍信息中的学籍信息id删学生的职务信息 -->
+    <query name="enrolment.deletePositionScroId" >
+       <hql>
+          <![CDATA[
+            delete from ChPosition as cp 
+            where 1=1 
+            <#if scroId??>
+           		and cp.chScroId like:scroId 
+	        </#if>
+	         order by cp.chScroId desc
+          ]]>
+       </hql>
+    </query>      
+    <!-- 根据学籍信息中的学籍信息id查询学生的实践信息 -->
+    <query name="enrolment.findPractice" >
+       <hql>
+          <![CDATA[
+            from ChPractice as cp 
+            where 1=1 
+            <#if chScroId??>
+           		and cp.chScroId like:chScroId 
+	        </#if>
+	         order by cp.chScroId desc
+          ]]>
+       </hql>
+    </query>   
+    <!-- 根据学籍信息中的学籍信息id删学生的实践信息 -->
+    <query name="enrolment.deletePracticeScroId" >
+       <hql>
+          <![CDATA[
+            delete from ChPractice as cp 
+            where 1=1 
+            <#if scroId??>
+           		and cp.chScroId like:scroId 
+	        </#if>
+	         order by cp.chScroId desc
+          ]]>
+       </hql>
+    </query>  
+    <!-- 根据学籍信息中的学籍信息id查询学生的简历信息 -->
+    <query name="enrolment.findResume" >
+       <hql>
+          <![CDATA[
+            from ChResume as cr 
+            where 1=1 
+            <#if chScroId??>
+           		and cr.chScroId like:chScroId 
+	        </#if>
+	         order by cr.chScroId desc
+          ]]>
+       </hql>
+    </query>  
+    <!-- 根据学籍信息中的学籍信息id删学生的简历信息 -->
+    <query name="enrolment.deleteResumeScroId" >
+       <hql>
+          <![CDATA[
+            delete from ChResume as cr 
+            where 1=1 
+            <#if scroId??>
+           		and cr.chScroId like:scroId 
+	        </#if>
+	         order by cr.chScroId desc
+          ]]>
+       </hql>
+    </query>  
+    <!-- 根据学籍信息中的学籍信息id查询学生的奖惩信息 -->
+    <query name="enrolment.findReward" >
+       <hql>
+          <![CDATA[
+            from ChReward as cr 
+            where 1=1 
+            <#if chScroId??>
+           		and cr.chScroId like:chScroId 
+	        </#if>
+	         order by cr.chScroId desc
+          ]]>
+       </hql>
+    </query> 
+   <!-- 根据学籍信息中的学籍信息id删学生的奖惩信息 -->
+    <query name="enrolment.deleteRewardScroId" >
+       <hql>
+          <![CDATA[
+            delete from ChReward as cr 
+            where 1=1 
+            <#if scroId??>
+           		and cr.chScroId like:scroId 
+	        </#if>
+	         order by cr.chScroId desc
+          ]]>
+       </hql>
+    </query> 
+    <!-- 根据学籍信息中的学籍信息id查询学生的特长信息 -->
+    <query name="enrolment.findSpecial" >
+       <hql>
+          <![CDATA[
+            from ChSpecial as cs 
+            where 1=1 
+            <#if chScroId??>
+           		and cs.chScroId like:chScroId 
+	        </#if>
+	         order by cs.chScroId desc
+          ]]>
+       </hql>
+    </query> 
+    <!-- 根据学籍信息中的学籍信息id删学生的特长信息 -->
+    <query name="enrolment.deleteSpecialScroId" >
+       <hql>
+          <![CDATA[
+            delete from ChSpecial as cs 
+            where 1=1 
+            <#if scroId??>
+           		and cs.chScroId like:scroId 
+	        </#if>
+	         order by cs.chScroId desc
+          ]]>
+       </hql>
+    </query>
+    <!-- 根据学籍信息中的学籍信息id查询学生的作品信息 -->
+    <query name="enrolment.findWorks" >
+       <hql>
+          <![CDATA[
+            from ChWorks as cw 
+            where 1=1 
+            <#if chScroId??>
+           		and cw.chScroId like:chScroId 
+	        </#if>
+	         order by cw.chScroId desc
+          ]]>
+       </hql>
+    </query> 
+    <!-- 根据学籍信息中的学籍信息id删学生的作品信息 -->
+    <query name="enrolment.deleteWorksScroId" >
+       <hql>
+          <![CDATA[
+            delete from ChWorks as cw 
+            where 1=1 
+            <#if scroId??>
+           		and cw.chScroId like:scroId 
+	        </#if>
+	         order by cw.chScroId desc
+          ]]>
+       </hql>
+    </query>              
+	<!-- 学籍管理的查询脚本结束-->
+      
+</queryMapping>

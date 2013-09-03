@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+          "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+<session-factory>
+		<!-- system -->
+        <mapping class="com.ccloudedu.system.entity.SysUser"/>
+        <mapping class="com.ccloudedu.system.entity.SysDept"/>
+        <mapping class="com.ccloudedu.system.entity.SysRole"/>
+        <mapping class="com.ccloudedu.system.entity.SysUserRole"/>
+        <mapping class="com.ccloudedu.system.entity.SysMenu"/>
+        <mapping class="com.ccloudedu.system.entity.SysRoleMenu"/>
+        <mapping class="com.ccloudedu.system.entity.SysDataDictionary"/>
+        <mapping class="com.ccloudedu.system.entity.SysAccessLog"/>
+        <mapping class="com.ccloudedu.system.entity.SysRuleSetting"/>
+        <mapping class="com.ccloudedu.system.entity.SysMailServerSetting"/>
+        <mapping class="com.ccloudedu.system.entity.UserLoginLog"/>
+        <mapping class="com.ccloudedu.system.entity.QuerySqlHql"/>
+                
+        <!-- upload file -->
+        <mapping class="com.ccloudedu.upload.entity.UploadFile"/>
+        
+         <!-- oa -->
+         <mapping class="com.ccloudedu.oa.msg.entity.OaIntenalMessage"/>
+         <mapping class="com.ccloudedu.oa.work.entity.OaProject"/>
+         <mapping class="com.ccloudedu.oa.work.entity.OaProjectSchedule"/>
+         <mapping class="com.ccloudedu.oa.work.entity.OaProjectParticipant"/>
+         <mapping class="com.ccloudedu.oa.work.entity.OaWorkLog"/>
+         <mapping class="com.ccloudedu.oa.msg.entity.OaMessageBoard"/>
+         <mapping class="com.ccloudedu.oa.article.entity.OaArticle"/>
+         <mapping class="com.ccloudedu.oa.article.entity.OaArticleComment"/>
+         <mapping class="com.ccloudedu.oa.article.entity.OaArticleCommentReplay"/>
+         
+         <!-- cms -->
+         <mapping class="com.ccloudedu.cms.entity.CmsArticle"/>
+         <mapping class="com.ccloudedu.cms.entity.CmsArticleAttr"/>
+         <mapping class="com.ccloudedu.cms.entity.CmsChannel"/>
+         <mapping class="com.ccloudedu.cms.entity.CmsTemplet"/>
+         <mapping class="com.ccloudedu.cms.entity.CmsComment"/>
+         <mapping class="com.ccloudedu.cms.entity.CmsCommentReplay"/>
+         <mapping class="com.ccloudedu.cms.entity.CmsMember"/>
+         <mapping class="com.ccloudedu.cms.entity.CmsMemberGroup"/>
+       
+         <!-- workflow -->
+         <mapping class="com.ccloudedu.workflow.common.entity.WfExecuteSetting"/>
+         <mapping class="com.ccloudedu.workflow.leave.entity.WfLeave"/>
+         <mapping class="com.ccloudedu.workflow.leave.entity.WfLeaveAudit"/>
+     
+         <!-- jbpm -->
+         <mapping resource="jbpm.repository.hbm.xml" />
+	     <mapping resource="jbpm.execution.hbm.xml" />
+	     <mapping resource="jbpm.history.hbm.xml" />
+	     <mapping resource="jbpm.task.hbm.xml" />
+	     <mapping resource="jbpm.identity.hbm.xml" />
+	     
+	     <!-- yjpsun student -->
+         <mapping class="com.ccloudedu.common.entity.ChStudent"/>
+	     <mapping class="com.ccloudedu.common.entity.ChAdminway"/>
+	     <mapping class="com.ccloudedu.common.entity.ChBloodtype"/>
+	     <mapping class="com.ccloudedu.common.entity.ChEthnic"/>
+	     <mapping class="com.ccloudedu.common.entity.ChForeign"/>
+	     <mapping class="com.ccloudedu.common.entity.ChHealthstatus"/>
+		 <mapping class="com.ccloudedu.common.entity.ChPolface"/>
+		 <mapping class="com.ccloudedu.common.entity.ChSchoolroll"/>
+		 <mapping class="com.ccloudedu.common.entity.ChSchool"/>
+		 <mapping class="com.ccloudedu.common.entity.ChClasstree"/>
+		 <mapping class="com.ccloudedu.common.entity.ChFamily"/>		 
+		 <mapping class="com.ccloudedu.common.entity.ChComment"/>
+		 <mapping class="com.ccloudedu.common.entity.ChHomeVisite"/>
+		 <mapping class="com.ccloudedu.common.entity.ChOtherInfo"/>
+		 <mapping class="com.ccloudedu.common.entity.ChPosition"/>
+		 <mapping class="com.ccloudedu.common.entity.ChPractice"/>
+		 <mapping class="com.ccloudedu.common.entity.ChResume"/>
+		 <mapping class="com.ccloudedu.common.entity.ChReward"/>
+		 <mapping class="com.ccloudedu.common.entity.ChSpecial"/>
+		 <mapping class="com.ccloudedu.common.entity.ChWorks"/>
+		 <mapping class="com.ccloudedu.student.entity.ChReportList"/>
+		 
+		 <!-- doudou 20130710 role and user-->
+        <mapping class="com.ccloudedu.common.entity.ChRole"/>
+        <mapping class="com.ccloudedu.common.entity.ChRolefunc"/>
+        <mapping class="com.ccloudedu.common.entity.ChRange"/>
+        <mapping class="com.ccloudedu.common.entity.ChFunction"/>
+        <mapping class="com.ccloudedu.common.entity.ChUser"/>
+        <mapping class="com.ccloudedu.common.entity.ChTeacher"/>
+        <mapping class="com.ccloudedu.common.entity.ChMenu"/>
+        <mapping class="com.ccloudedu.common.entity.ChRecord"/>
+        <mapping class="com.ccloudedu.common.entity.ChBackup"/>
+        <mapping class="com.ccloudedu.common.entity.ChRolebutton"/>
+        <mapping class="com.ccloudedu.common.entity.ChModel"/>
+        <mapping class="com.ccloudedu.common.entity.ChModelfunc"/>
+        <mapping class="com.ccloudedu.common.entity.ChDepartment"/>
+        
+		
+		<!-- shenxuan underlying --> 
+		<mapping class="com.ccloudedu.underlying.entity.ChDatadictionaryMenu"/>
+		<mapping class="com.ccloudedu.common.entity.ChDatadictionary"/>
+		<mapping class="com.ccloudedu.common.entity.ChStudenttype"/>
+		<mapping class="com.ccloudedu.common.entity.ChPersontype"/>
+		
+		
+		
+		<!-- zly underlying --> 
+		<mapping class="com.ccloudedu.common.entity.ChCampus"/>
+
+		
+</session-factory>
+</hibernate-configuration>

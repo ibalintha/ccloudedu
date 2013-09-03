@@ -1,0 +1,661 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<queryMapping>
+
+<!-- 按条件查询用户 -->
+    <query name="system.findUsers">
+       <hql>
+          <![CDATA[
+            select user from SysUser as user 
+            <#if _query_roleId??>
+	             , SysUserRole as ur 
+	        </#if> 
+            where 1=1 
+            <#if loginName??>
+	            and user.loginName=:loginName
+	        </#if> 
+	        <#if passWord??>
+	            and user.passWord=:passWord
+	        </#if> 
+            <#if deptId??>
+	            and user.sysDept.id=:deptId 
+	        </#if> 
+	        <#if roleId??>
+	            and user.id=ur.sysUser.id and ur.sysRole.id=:roleId 
+	        </#if>
+	        <#if userName??>
+	            and user.userName like:userName  
+	        </#if>
+	        <#if userIdList??>
+	             and user.id in (:userIdList) 
+	        </#if>
+	        <#--超级管理员，可查看所有的部门，非超级管理员，只可查询本部门和下级部门的用户-->
+		    <#if parentDeptLevel??>
+		         and user.sysDept.deptLevel like :parentDeptLevel 
+		    </#if>
+	         
+	        <#if orderattr??>
+	              order by  ${orderattr}  ${ordertype}
+	        <#else>
+	              order by user.createTime desc
+	        </#if>
+          ]]>
+       </hql>
+    </query>
+    
+    <!-- 按条件查询用户 -->
+    <query name="system.findChUsers">
+       <hql>
+          <![CDATA[
+            select user from ChUser as user 
+            where 1=1 
+            <#if loginName??>
+	            and user.chUserLogname=:loginName
+	        </#if> 
+	        <#if passWord??>
+	            and user.chUserPassword=:passWord
+	        </#if> 
+	        <#if roleId??>
+	            and user.chUserRoleids like:roleId
+	        </#if>
+	        <#if userName??>
+	            and user.chUsername like:userName  
+	        </#if>
+	        <#if userIdList??>
+	             and user.id in (:userIdList) 
+	        </#if>
+	        <#if orderattr??>
+	              order by  ${orderattr}  ${ordertype}
+	        <#else>
+	              order by user.chUserMaketime desc
+	        </#if>
+          ]]>
+       </hql>
+    </query>
+    
+     <query name="system.findDepts">
+       <hql>
+          <![CDATA[
+               select dept from SysDept as dept 
+               where 1=1 
+		       <#--有上级部门-->
+		       <#if _query_existedParentDept??>
+		            and dept.sysDept.id is not null
+		       </#if>
+		       <#--由上级部门获得所有的直接下级部门-->
+		       <#if parentId??>
+		             and dept.sysDept.id=:parentId
+		       </#if>
+		       <#--由部门名称查询部门-->
+		       <#if deptName??>
+		             and dept.deptName=:deptName
+		       </#if>
+		       <#--获得所有下级部门，包括直接部门和间接部门-->
+		       <#if deptLevel??>
+		             and dept.deptLevel like :deptLevel
+		       </#if>
+		       order by dept.createTime asc
+          ]]>
+       </hql>
+    </query>
+    
+     <!-- 获得部门层级/根据上级部门获得所有下级直接部门的数量 -->
+    <query name="system.getCountSubDeptNumByParentId">
+       <hql>
+          <![CDATA[select count(dept.id) from SysDept as dept where dept.sysDept.id=:parentId order by dept.createTime asc]]>
+       </hql>
+    </query>
+    
+    <!-- 查询角色 -->
+     <query name="system.findRoles">
+       <hql>
+          <![CDATA[
+		       select role from ChRole as role 
+		       where 1=1 
+		       <#--有上级角色-->
+		       <#if _query_existedParentRole??>
+		            and role.chRole.id is not null 
+		       </#if>
+		       <#--由上级角色获得所有的下级角色-->
+		       <#if parentId??>
+		             and role.chRole.id=:parentId 
+		       </#if>
+		       <#--由角色名称查询角色-->
+		       <#if roleName??>
+		             and role.chRoleName like :roleName
+		       </#if>
+		       <#--由权限模型查询角色-->
+		       <#if roleModel??>
+		             and role.chRoleModel like :roleModel 
+		       </#if>
+		       <#if orderattr??>
+	              order by  ${orderattr}  ${ordertype}
+	           <#else>
+	              order by role.id desc
+	           </#if>
+          ]]>
+       </hql>
+    </query>
+    
+    <!-- 获得角色获得其所有权限的数量 -->
+    <query name="system.getCountFuncNumByRoleId">
+       <hql>
+          <![CDATA[select count(roleFunc.id) from ChRolefunc as roleFunc where roleFunc.chRole.id=:roleId order by roleFunc.id asc]]>
+       </hql>
+    </query>
+    
+    <!-- 获得角色层级/根据上级角色获得所有下级直接角色的数量 -->
+    <query name="system.getCountSubChRoleNumByParentId">
+       <hql>
+          <![CDATA[select count(role.id) from ChRole as role where role.chRole.id=:parentId]]>
+       </hql>
+    </query>
+    
+    <!-- 获得角色对应的权限 -->
+     <query name="system.findRoleFuncs">
+       <hql>
+          <![CDATA[
+               select rf from ChRolefunc rf 
+               where 1=1 
+               <#--获得角色对应的权限-->
+               <#if roleId??>
+                   and rf.chRole.id=:roleId
+               </#if>
+               <#--权限路径-->
+               <#if funcPath??>
+                    and rf.chFunc.chFuncPath=:funcPath 
+               </#if>
+          ]]>
+       </hql>
+    </query>
+    
+    <!-- 查询权限 -->
+     <query name="system.findFuncs">
+       <hql>
+          <![CDATA[
+          select func from ChFunction as func 
+          where 1=1 
+          <#if funcName??>
+              and func.chFuncName=:funcName  
+          </#if>
+          <#if parentId??>
+              and func.chFunc.id=:parentId 
+          </#if>
+          <#--有三级菜单-->
+		  <#if existedParentId??>
+		      and func.chFunc.id is not null and func.chFunc.id!=:existedParentId 
+		  </#if>
+	          order by func.chFuncSortno asc 
+          ]]>
+       </hql>
+	</query>
+	
+	<query name="system.findFuncsBy">
+       <hql>
+          <![CDATA[
+          select func from ChFunction as func 
+          where 1=1 
+          <#if parentId??>
+              and func.chFunc.id=:parentId 
+          </#if>
+          <#--有三级菜单-->
+		  <#if existedParentId??>
+		      and func.chFunc.id is not null and func.chFunc.id!=:existedParentId 
+		  </#if>
+	          order by func.chFuncSortno asc  
+          ]]>
+       </hql>
+	</query>
+	 
+    <!-- 获得角色层级/根据上级角色获得所有下级直接角色的数量 -->
+    <query name="system.getCountSubRoleNumByParentId">
+       <hql>
+          <![CDATA[select count(role.id) from SysRole as role where role.sysRole.id=:parentId order by role.createTime asc]]>
+       </hql>
+    </query>
+    <!-- 获得角色对应的菜单 -->
+     <query name="system.findRoleMenus">
+       <hql>
+          <![CDATA[
+               select rm from SysRoleMenu rm 
+               where 1=1 
+               <#--获得角色对应的菜单-->
+               <#if roleId??>
+                   and rm.sysRole.id=:roleId
+               </#if>
+               <#--权限List-->
+               <#if authList??>
+                    and rm.auth IN (:authList) 
+               </#if>
+               <#--菜单路径-->
+               <#if menuPath??>
+                    and rm.sysMenu.menuPath=:menuPath 
+               </#if>
+          ]]>
+       </hql>
+    </query>
+    
+    <!-- 查询菜单 -->
+     <query name="system.findMenus">
+       <hql>
+          <![CDATA[
+          select menu from SysMenu as menu 
+          where 1=1 
+          <#if parentId??>
+              and menu.sysMenu.id=:parentId 
+          </#if>
+          order by menu.createTime asc
+          ]]>
+       </hql>
+	</query>
+	 
+	 <!-- 查询数据字典 -->
+	 <query name="system.findDataDictionarys">
+       <hql>
+          <![CDATA[
+	          select dd from SysDataDictionary as dd 
+	          where 1=1 
+	          <#if parentId??>
+	              and dd.parentDD.id=:parentId
+	          </#if>
+	          <#if ddValue??>
+	              and dd.ddValue =:ddValue
+	          </#if>
+	          <#if undefined1??>
+	               and dd.undefined1=:undefined1 
+	          </#if>
+	          <#if _query_exceptUndefined1??>
+	               and dd.undefined1 is null 
+	          </#if>
+	          order by dd.createTime asc
+          ]]>
+       </hql>
+	</query>
+    <!-- 直接sql查询所有的数据字典 ,不包括根级字典，方式1-->
+	<query name="system.findDataDictionarys1">
+       <sql>
+          <![CDATA[
+	          select id,parent_id parentid,dd_value ddvalue,dd_name ddname,en_dd_name enddname,remark,undefined1 
+	          from sys_data_dictionary 
+	          where parent_id is not null
+          ]]>
+       </sql>
+	</query>
+	<!-- 直接sql查询数据字典发方式2-->
+	<query name="system.findDataDictionarys2">
+       <sql>
+          <![CDATA[
+	          select id,parent_id parentid,dd_value ddvalue,dd_name ddname,en_dd_name enddname,remark,undefined1 
+	          from sys_data_dictionary 
+	          where id in (select distinct parent_id from sys_data_dictionary)
+          ]]>
+       </sql>
+	</query>
+	  <!-- 用户登录日志 -->
+	 <query name="system.userLoginLog.findPage">
+        <hql>
+           <![CDATA[
+	          select log from UserLoginLog as log 
+	          where 1=1 
+	          <#if loginUserId??>
+	              and log.loginUser.id=:loginUserId 
+	          </#if> 
+	          <#if loginUserName??>
+	               and log.loginUser.userName like:loginUserName 
+	          </#if>
+	          <#if startLoginTime??>
+	                and log.loginTime>=:startLoginTime 
+	          </#if>
+	           <#if endLoginTime??>
+	                and log.loginTime<=:endLoginTime 
+	          </#if>
+	          <#if orderattr??>
+	                order by  ${orderattr} ${ordertype}
+	          <#else>
+	                order by log.createTime desc 
+	          </#if>
+	       ]]>
+        </hql>	 
+	 </query>
+	 <!-- 查询sql/hql语句 -->
+	 <query name="system.findQuerySqlHqls">
+	    <hql>
+	         <![CDATA[
+	            from QuerySqlHql as qhs 
+	            where 1=1 
+	            <#if menuId??>
+	                and qhs.menu.id=:menuId 
+	            </#if>
+	            <#if queryName??>
+	                and qhs.queryName=:queryName
+	            </#if>
+	           order by qhs.createTime asc
+	         ]]>
+	    </hql>
+	</query>
+	<!-- 查询邮箱服务器设置 -->
+	<query name="system.findMailServerSettings">
+	    <hql>
+	    <![CDATA[from SysMailServerSetting]]>
+	    </hql>
+	</query>
+	<!-- 查询系统规则设置 -->
+	<query name="system.findSysRuleSettings">
+	    <hql>
+	    <![CDATA[
+             from SysRuleSetting where 1=1 
+             <#if ruleType??>
+                 and ruleType =:ruleType
+             </#if>
+        ]]>
+	    </hql>
+	</query>
+	<!-- 查询附件 -->
+	<query name="system.findUploadFiles">
+	    <hql>
+	    <![CDATA[
+	       from UploadFile uf 
+	       where 1=1 
+	       <#if ownerId??>
+	             and uf.ownerId=:ownerId
+	       </#if>
+	    ]]>
+	    </hql>
+	</query>
+	
+	
+	 <!-- 查询入学方式 -->
+     <query name="system.findListByChAdminway">
+       <hql>
+          <![CDATA[
+		       select chadwa from ChAdminway as chadwa 
+		       where 1=1 
+		       <#if chAdwaName??>
+		             and chadwa.chAdwaName=:chAdwaName
+		       </#if>
+		       order by chadwa.id asc
+          ]]>
+       </hql>
+    </query>
+    
+    <!-- 查询血型 -->
+     <query name="system.findListByChBloodtype">
+       <hql>
+          <![CDATA[
+		       select chbltp from ChBloodtype as chbltp 
+		       where 1=1 
+		       <#if chBdtpName??>
+		             and chbltp.chBdtpName=:chBdtpName
+		       </#if>
+		       order by chbltp.id asc
+          ]]>
+       </hql>
+    </query>
+	
+	<!-- 查询民族 -->
+     <query name="system.findListByChEthnic">
+       <hql>
+          <![CDATA[
+		       select chet from ChEthnic as chet 
+		       where 1=1 
+		       <#if chEthnName??>
+		             and chbltp.chEthnName=:chEthnName
+		       </#if>
+		       order by chet.id asc
+          ]]>
+       </hql>
+    </query>
+    <!-- 查询报表列表 -->
+     <query name="system.findListByChReportList">
+       <hql>
+          <![CDATA[
+		       select chet from ChReportList as chet 
+		       where 1=1 
+		       <#if chReportName??>
+		             and chbltp.chReportName=:chReportName
+		       </#if>
+		       order by chet.id asc
+          ]]>
+       </hql>
+    </query>
+    <!-- 查询港澳台侨外码 -->
+     <query name="system.findListByChForeign">
+       <hql>
+          <![CDATA[
+		       select chfore from ChForeign as chfore 
+		       where 1=1 
+		       <#if chFognName??>
+		             and chbltp.chFognName=:chFognName
+		       </#if>
+		       order by chfore.id asc
+          ]]>
+       </hql>
+    </query>
+    
+    <!-- 查询健康状态 -->
+     <query name="system.findListByChHealthstatus">
+       <hql>
+          <![CDATA[
+		       select chgtst from ChHealthstatus as chgtst 
+		       where 1=1 
+		       <#if chHestName??>
+		             and chbltp.chHestName=:chHestName
+		       </#if>
+		       order by chgtst.id asc
+          ]]>
+       </hql>
+    </query>
+    
+    <!-- 查询健康状态 -->
+     <query name="system.findListByChPolface">
+       <hql>
+          <![CDATA[
+		       select chplfa from ChPolface as chplfa 
+		       where 1=1 
+		       <#if chPlfaName??>
+		             and chbltp.chPlfaName=:chPlfaName
+		       </#if>
+		       order by chplfa.id asc
+          ]]>
+       </hql>
+    </query>
+    
+    <!-- 查询班级列表 -->
+     <query name="system.findListByChClasstree">
+       <hql>
+          <![CDATA[
+		       select cct from ChClasstree as cct 
+		       where 1=1 
+		       <#if name??>
+		             and cct.name=:name
+		       </#if>
+		       and cct.isLast = 'Y'
+		       order by cct.id asc
+          ]]>
+       </hql>
+    </query>
+ 	<!-- 查询班级列表 -->
+     <query name="system.findClasstree">
+       <hql>
+          <![CDATA[
+		       select cct from ChClasstree as cct 
+		       where 1=1 
+		       <#if id??>
+		             and cct.id=:id
+		       </#if>
+		      	<#if parentId??>
+		             and cct.parentId=:parentId
+		       </#if>
+		       <#if name??>
+		             and cct.name=:name
+		       </#if>
+		       order by cct.id asc
+          ]]>
+       </hql>
+    </query>	
+	
+	<!-- 模板 -->
+	  <query name="system.findClassTrees">
+	    <hql>
+		    <![CDATA[
+		      select cct from ChClasstree as cct  order by cct.id asc
+		    ]]>
+	    </hql>
+	  </query>
+	  
+	  <query name="findClassTreesByParentId">
+	    <hql>
+		    <![CDATA[
+		        select cct from ChClasstree as cct 
+		        where cct.chclasstree.id=:parentId order by cct.id asc
+		    ]]>
+	    </hql>
+	  </query>
+	  
+    <!-- add by yueyongsheng 2013-07-11 -->
+	<!-- 查询教职工 -->
+     <query name="system.findTeachers">
+       <hql>
+          <![CDATA[
+		       select teacher from ChTeacher as teacher 
+		       where 1=1 
+		       <#--由教师名称查询教师-->
+		       <#if teacherName??>
+		             and teacher.chTeacName=:teacherName
+		       </#if>
+		       order by teacher.id asc
+          ]]>
+       </hql>
+    </query>
+    
+    <!-- add by yueyongsheng 2013-07-12 -->
+	<!-- 查询权限范围 -->
+     <query name="system.findRanges">
+       <hql>
+          <![CDATA[
+		       select range from ChRange as range 
+		       where 1=1 
+		       <#--由角色ID查询权限范围-->
+		       <#if roleId??>
+		             and range.chRole.id=:roleId
+		       </#if>
+		        <#if chRangDesc??>
+		             and range.chRangDesc=:chRangDesc
+		       </#if>
+		       order by range.id asc
+          ]]>
+       </hql>
+    </query>
+    
+    <!-- 查询数据库备份信息 -->
+     <query name="system.findBackups">
+       <hql>
+          <![CDATA[
+		       select backup from ChBackup as backup 
+		       where 1=1 
+		       <#--由备份的数据库名查询备份-->
+		       <#if database??>
+		             and backup.chBaupDatabase=:database
+		       </#if>
+		       <#if backWay??>
+		             and backup.chBaupWay=:backWay
+		       </#if>
+		       <#if backRate??>
+		             and backup.chBaupRate=:backRate
+		       </#if>
+		       order by backup.id asc
+          ]]>
+       </hql>
+    </query>
+    
+    <!-- 查询按钮信息 -->
+     <query name="system.findButtons">
+       <hql>
+          <![CDATA[
+		       select roleButton from ChRolebutton as roleButton 
+		       where 1=1 
+		       <#--由备份的数据库名查询备份-->
+		       <#if roleName??>
+		             and roleButton.chRole.chRoleName=:roleName 
+		       </#if>
+		       <#if funcName??>
+		             and roleButton.chFunc.chFuncName=:funcName 
+		       </#if>
+		       order by roleButton.id asc
+          ]]>
+       </hql>
+    </query>
+   
+        <!-- 查询日志信息 -->
+     <query name="system.chRecord.findPage">
+        <hql>
+           <![CDATA[
+	          select log from ChRecord as log 
+	          where 1=1 
+	          <#if chRecdModule??>
+	              and log.chRecdModule like :chRecdModule 
+	          </#if>
+	          <#if chRecdType??>
+	               and log.chRecdType like :chRecdType
+	          </#if>
+	          <#if startLoginTime??>
+	                and log.chRecdTime between :startLoginTime 
+	          </#if>
+	           <#if endLoginTime??>
+	                and :endLoginTime 
+	          </#if>
+	          <#if orderattr??>
+	                order by  ${orderattr} ${ordertype}
+	          <#else>
+	                order by log.chRecdTime desc 
+	          </#if>
+	       ]]>
+        </hql>	 
+	 </query>
+
+	<!-- 查询模型权限信息 -->
+     <query name="system.findFuncsByModel">
+        <hql>
+           <![CDATA[
+	          select modelFunc from ChModelfunc as modelFunc 
+	          where 1=1 
+	          <#if modelId??>
+	              and modelFunc.chModelId=:modelId 
+	          </#if>
+	          <#if funcId??>
+	              and modelFunc.chFuncId=:funcId 
+	          </#if>
+	       ]]>
+        </hql>	 
+	 </query>
+	 
+	 <!-- 查询权限信息 -->
+     <query name="system.findModels">
+        <hql>
+           <![CDATA[
+	          select model from ChModel as model 
+	          where 1=1 
+	          <#if modelId??>
+	              and model.id=:modelId 
+	          </#if>
+	          <#if modelName??>
+	              and model.chModlName like :modelName 
+	          </#if>
+	          order by model.id asc
+	       ]]>
+        </hql>	 
+	 </query>
+	 <!-- 查询部门信息 -->
+	 <query name="system.findChDepts">
+       <hql>
+          <![CDATA[
+               select dept from ChDepartment as dept 
+               where 1=1 
+		       <#--由部门名称查询部门-->
+		       <#if chDepaName??>
+		             and dept.chDepaName=:chDepaName
+		       </#if>
+		       order by dept.chDepaCode asc
+          ]]>
+       </hql>
+    </query>
+</queryMapping>

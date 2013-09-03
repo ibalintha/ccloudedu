@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" printOrder="Horizontal" pageWidth="900" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="860" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" isIgnorePagination="true" uuid="acfbf457-f414-4656-9fc4-18ced3bb7307">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="title" vAlign="Middle" pattern="" fontName="宋体" fontSize="20" isItalic="false" isUnderline="false" pdfFontName="C:\WINDOWS\Fonts\SIMKAI.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+	<style name="cellCenterNoBorder" hAlign="Center" vAlign="Middle" fontName="宋体" fontSize="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="C:\WINDOWS\Fonts\SIMKAI.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true">
+		<paragraph lineSpacing="Single"/>
+	</style>
+	<style name="cellleftNoBorder" hAlign="Left" vAlign="Middle" fontName="宋体" fontSize="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="C:\WINDOWS\Fonts\SIMKAI.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true">
+		<paragraph lineSpacing="Single"/>
+	</style>
+	<style name="cellRightNoBorder" hAlign="Right" vAlign="Middle" fontName="宋体" fontSize="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="C:\WINDOWS\Fonts\SIMKAI.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true">
+		<paragraph lineSpacing="Single"/>
+	</style>
+	<style name="cellCenterHasBorder" hAlign="Center" vAlign="Middle" fontName="宋体" fontSize="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="C:\WINDOWS\Fonts\SIMKAI.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true">
+		<pen lineWidth="0.5" lineColor="#000000"/>
+		<paragraph lineSpacing="Single"/>
+	</style>
+	<style name="cellleftHasBorder" vAlign="Middle" fontName="宋体" fontSize="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="C:\WINDOWS\Fonts\SIMKAI.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true">
+		<paragraph lineSpacing="Single"/>
+	</style>
+	<style name="cellRightHasBorder" hAlign="Right" vAlign="Middle" fontName="宋体" fontSize="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="C:\WINDOWS\Fonts\SIMKAI.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true">
+		<paragraph lineSpacing="Single"/>
+	</style>
+	<parameter name="where" class="java.lang.String"/>
+	<parameter name="school" class="java.lang.String">
+		<parameterDescription><![CDATA[纳税人名称]]></parameterDescription>
+	</parameter>
+	<parameter name="grade" class="java.lang.String"/>
+	<parameter name="clas_id" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+      ch_stud_name
+      ,ch_stud_schcode  ,ch_clas_id
+      ,ch_stud_personid
+      ,ch_stud_sex
+      ,ch_stud_birth
+      ,ch_stud_birthplace
+      ,ch_stud_oldschool
+      ,ch_stud_national
+      ,ch_stud_memo
+      ,ch_stud_enrolldate
+  FROM ccloudEdu.dbo.ch_student where ch_clas_id =$P{clas_id}]]>
+	</queryString>
+	<field name="ch_stud_name" class="java.lang.String"/>
+	<field name="ch_stud_schcode" class="java.lang.String"/>
+	<field name="ch_clas_id" class="java.lang.String"/>
+	<field name="ch_stud_personid" class="java.lang.String"/>
+	<field name="ch_stud_sex" class="java.lang.String"/>
+	<field name="ch_stud_birth" class="java.lang.String"/>
+	<field name="ch_stud_birthplace" class="java.lang.String"/>
+	<field name="ch_stud_oldschool" class="java.lang.String"/>
+	<field name="ch_stud_national" class="java.lang.String"/>
+	<field name="ch_stud_memo" class="java.lang.String"/>
+	<field name="ch_stud_enrolldate" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="127" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="8762ed87-811e-4beb-8d23-d64490075922" style="cellRightNoBorder" x="178" y="10" width="92" height="33"/>
+				<textElement textAlignment="Center">
+					<font fontName="宋体" size="14" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{where}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="0b36d6fb-78f7-44c6-a1ee-f32fcb9f2888" style="title" x="270" y="10" width="97" height="33"/>
+				<textElement textAlignment="Justified">
+					<font fontName="宋体" size="14" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[县（市、区）]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="a91a946c-c3c7-4163-9039-f29cd571f637" style="cellleftNoBorder" x="367" y="10" width="135" height="33"/>
+				<textElement textAlignment="Justified">
+					<font fontName="宋体" size="14" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{school}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="33dd15db-19d7-4a98-b39d-0e214f1b3ffa" style="title" x="178" y="43" width="159" height="33"/>
+				<textElement textAlignment="Justified">
+					<font fontName="宋体" size="14" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[2012-2013 年秋季入学的]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4ec372dd-618d-4665-b7f9-e0d0e6d1e56f" style="cellCenterNoBorder" x="19" y="94" width="143" height="33"/>
+				<textElement>
+					<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[学校（盖章）：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9b8c92c7-6eba-44ce-be0c-5a910bc3f5b7" style="cellleftNoBorder" x="473" y="94" width="161" height="33"/>
+				<textElement>
+					<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[主管部门（盖章）：]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="3e9bd95d-57c8-4448-b70d-92368a3cb6fa" x="337" y="43" width="63" height="33"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="宋体" size="14" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{grade}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="05cfbc25-f7e2-40a5-b2db-b7f72ffe2ac0" style="title" x="400" y="43" width="102" height="33"/>
+				<textElement textAlignment="Justified">
+					<font fontName="宋体" size="14" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[新生花名册]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="42" splitType="Stretch">
+			<frame>
+				<reportElement uuid="643c326d-b82d-4d6f-b904-8d9e9f778733" mode="Opaque" x="1" y="9" width="734" height="33" isPrintInFirstWholeBand="true" backcolor="#999999"/>
+				<staticText>
+					<reportElement uuid="05e827ac-2941-4fb5-8b33-66c76a938b69" style="cellCenterHasBorder" x="289" y="0" width="60" height="33" backcolor="#666666"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement>
+						<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					</textElement>
+					<text><![CDATA[性别]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="f34d7c10-1cc4-43cd-beda-5fb1d097703f" style="cellCenterHasBorder" x="111" y="0" width="66" height="33" backcolor="#666666"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement>
+						<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					</textElement>
+					<text><![CDATA[学生学号]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="e45e4d82-1b82-49d4-8af3-1de761b9f1aa" style="cellCenterHasBorder" x="0" y="0" width="55" height="33" backcolor="#666666"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement>
+						<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					</textElement>
+					<text><![CDATA[序号]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="4c1d310d-6d9d-4f6b-aec1-f4b45450242c" style="cellCenterHasBorder" x="55" y="0" width="56" height="33" backcolor="#666666"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement>
+						<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					</textElement>
+					<text><![CDATA[学生姓名]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="adc62767-b213-40bd-ba7b-e1421e508572" style="cellCenterHasBorder" x="177" y="0" width="112" height="33" backcolor="#666666"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement>
+						<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					</textElement>
+					<text><![CDATA[身份证号]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="7f4cdb2e-10fe-4eb1-ab79-3c7c6b731d7a" style="cellCenterHasBorder" x="501" y="0" width="72" height="33" backcolor="#666666"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement>
+						<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					</textElement>
+					<text><![CDATA[出生年月]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="a617f6ca-10e9-49f5-a339-e594debe8053" style="cellCenterHasBorder" x="425" y="0" width="76" height="33" backcolor="#666666"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement>
+						<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					</textElement>
+					<text><![CDATA[出生地]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="e87c1b15-03fb-4125-b71e-112940b2f5d1" style="cellCenterHasBorder" x="573" y="0" width="85" height="33" backcolor="#666666"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement>
+						<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					</textElement>
+					<text><![CDATA[原毕业学校]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="547e4c95-5c1f-4681-b49a-8a07c5d49c0d" style="cellCenterHasBorder" x="349" y="0" width="76" height="33" backcolor="#666666"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement>
+						<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					</textElement>
+					<text><![CDATA[民族]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="695cfe96-17c4-44f2-95c4-134036d93a9e" style="cellCenterHasBorder" x="658" y="0" width="76" height="33" backcolor="#666666"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement>
+						<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					</textElement>
+					<text><![CDATA[备注]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="33" splitType="Stretch">
+			<frame>
+				<reportElement uuid="d7efd439-7538-4170-aa51-786ec6474590" mode="Opaque" x="1" y="0" width="734" height="33" backcolor="#CCFFFF">
+					<printWhenExpression><![CDATA[new Boolean((($V{PAGE_COUNT}.intValue()) % 1)==0)]]></printWhenExpression>
+				</reportElement>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="330622c8-7b44-4bbc-b459-1cbfdc58ac58" x="573" y="0" width="85" height="33"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ch_stud_oldschool}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="aa67698d-d449-41b5-814c-e639dfa9d4bc" style="cellCenterHasBorder" x="0" y="0" width="55" height="33"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement>
+						<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{PAGE_COUNT}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="490d7ac7-b708-49ba-912e-946b5dd59a82" x="111" y="0" width="66" height="33"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ch_stud_schcode}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="b18a4fe5-85f2-4f9c-9957-ec438f71942c" x="55" y="0" width="56" height="33"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ch_stud_name}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="1c63d4a3-6a74-4901-b795-d7ee5b84f402" x="177" y="0" width="112" height="33"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ch_stud_personid}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="18833b19-670e-4b47-9c54-4a1b81820faf" x="289" y="0" width="60" height="33"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ch_stud_sex}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="61b69813-e7e2-436e-bc65-b10725018d07" x="425" y="0" width="76" height="33"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ch_stud_birthplace}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="21e861b8-1d48-480d-a56b-b6bbfdec910e" x="349" y="0" width="76" height="33"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ch_stud_national}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="0ff6650d-d52d-4a66-bdb7-7b18b57e9b82" x="501" y="0" width="72" height="33"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ch_stud_birth}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="3a0312df-1dee-47e6-ba57-57497e0d6758" x="658" y="0" width="76" height="33"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ch_stud_memo}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="b1bab8de-f603-4161-ade7-2ec9249f6a92" style="cellRightNoBorder" x="3" y="20" width="69" height="29"/>
+				<textElement>
+					<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[打印日期：]]></text>
+			</staticText>
+			<textField pattern="yyyy年MM月dd日" isBlankWhenNull="true">
+				<reportElement uuid="1877ad71-bc0e-4108-b2aa-1fe9fe6dfd23" style="cellleftNoBorder" x="72" y="20" width="106" height="29"/>
+				<textElement>
+					<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[java.util.Calendar.getInstance().getTime()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

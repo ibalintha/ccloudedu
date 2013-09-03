@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<queryFiles>
+    <query file="resources/query/include/system.query.xml"/>
+    <query file="resources/query/include/cms.query.xml"/>
+    <query file="resources/query/include/oa.query.xml"/>
+    <query file="resources/query/include/workflow.query.xml"/>
+    <query file="resources/query/include/student.query.xml"/>
+    <query file="resources/query/include/underlying.query.xml"/>
+</queryFiles>

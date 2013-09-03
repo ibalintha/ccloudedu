@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<queryMapping>
+      <!-- 查询留言 -->
+	  <query name="oa.findMessageBoards">
+	    <hql>
+		    <![CDATA[
+		        from OaMessageBoard order by createTime desc
+		    ]]>
+	    </hql>
+	  </query>
+	  
+	    <!-- 查询文章 -->
+	  <query name="oa.findArticles">
+	    <hql>
+		    <![CDATA[
+		       select new OaArticle(id,title,enTitle,categoryValue,outerUrl,releaseDate,visitQuarter,isDraft)
+		       from OaArticle article where 1=1 
+		       <#--栏目代码-->
+		       <#if categoryValue??>
+		          and article.categoryValue =:categoryValue 
+		       </#if>
+		       <#--是否草稿-->
+		       <#if isDraft??>
+		          and article.isDraft =:isDraft 
+		       </#if>
+		       <#if orderattr??>
+	                order by convert_gbk(${orderattr}) ${ordertype}
+	           <#else>
+	                order by article.createTime desc 
+	           </#if>
+		    ]]>
+	    </hql>
+	  </query>
+	
+	  <!-- 查询内部短消息 -->
+	  <query name="oa.findIntenalMessages">
+	     <hql>
+		    <![CDATA[
+               from OaIntenalMessage as inmsg 
+               where 1=1 
+               <#--短消息标题-->
+               <#if msgTitle??>
+                   and inmsg.msgTitle like:msgTitle
+               </#if>
+               <#--发信人id-->
+               <#if senderId??>
+                   and inmsg.sender.id=:senderId 
+               </#if>
+               <#--发信人名称-->
+               <#if senderName??>
+                   and inmsg.sender.userName like:senderName
+               </#if>
+               <#--收信人id-->
+               <#if receiverId??>
+                   and inmsg.receiver.id=:receiverId 
+               </#if>
+               <#--收信人名称-->
+               <#if receiverName??>
+                   and inmsg.receiver.userName like:receiverName
+               </#if>
+		       <#--是否已读-->
+		       <#if isRead??>
+                   and inmsg.isRead=:isRead 
+               </#if>
+		       <#if orderattr??>
+	                order by convert_gbk(${orderattr}) ${ordertype}
+	           <#else>
+	                order by inmsg.createTime desc 
+	           </#if>
+		    ]]>
+	     </hql>
+	  </query>
+	  
+	   <!-- 更新短消息状态，从未读更新成已读 -->
+	  <query name="oa.updateIntenalMessage">
+	    <hql>
+		    <![CDATA[
+		         update OaIntenalMessage as inmsg set inmsg.isDelete='0' where inmsg.id in (:ids)
+		    ]]>
+	    </hql>
+	  </query>
+	  
+	   <!-- 查询项目 -->
+	  <query name="oa.findProjects">
+	    <hql>
+		    <![CDATA[
+		        from OaProject project
+		        <#if orderattr??>
+	                order by convert_gbk(${orderattr}) ${ordertype}
+	            <#else>
+	                order by project.createTime desc 
+	            </#if>
+		    ]]>
+	    </hql>
+	  </query>
+
+      <!-- 查询项目进度 -->
+	  <query name="oa.findProjectSchedules">
+	    <hql>
+		    <![CDATA[
+		        from OaProjectSchedule ps 
+		        where 1=1 
+		        <#if projectId??>
+		            and ps.oaProject.id=:projectId
+		        </#if>
+		        <#if orderattr??>
+	                order by convert_gbk(${orderattr}) ${ordertype}
+	            <#else>
+	                order by ps.createTime desc 
+	            </#if>
+		    ]]>
+	    </hql>
+	  </query>
+	  
+	    <!-- 查询工作日志 -->
+	  <query name="oa.findWorkLogs">
+	    <hql>
+		    <![CDATA[
+		        from OaWorkLog worklog 
+		        where 1=1 
+		        <#if parentDeptLevel??>
+		            and creator.sysDept.deptLevel like :parentDeptLevel 
+		            and worklog.isDraft='N' 
+		        <#else>
+		            and worklog.creator.id =:userId 
+		        </#if>
+		        <#if orderattr??>
+	                order by convert_gbk(${orderattr}) ${ordertype}
+	            <#else>
+	                order by worklog.createTime desc 
+	            </#if>
+		    ]]>
+	    </hql>
+	  </query>
+</queryMapping>

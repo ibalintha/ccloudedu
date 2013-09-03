@@ -1,0 +1,63 @@
+/*css3 属性，pdf页面属性*/
+@page{
+   /*size:12in 12in;/*pdf页大小    letter, legal, A4*/
+   size: A4;/*A4大小*/
+   @bottom-center {
+	  content:"page " counter(page) " of " counter(pages);
+	  font-size:10px;
+   }
+}
+html,body,div,ul,ol,li,dl,dt,dd,h4,h5,h6,pre,p,a,table,th,td{
+	margin: 0;
+	padding: 0;
+	font-size: 12px;
+	color: #333;
+	font-family: SimSun, Arial, Helvetica, Verdana, sans-serif;
+}
+/*pdf table*/
+table{
+	  table-layout:fixed;
+	  -fs-table-paginate: paginate;
+	  border-collapse: collapse;
+	  border-spacing: 0;
+}
+table td{word-wrap:break-word;}
+table tr{page-break-inside:avoid; } 
+
+legend{page-break-inside:avoid;}
+
+img{border:0px;}
+h3{margin:0;padding:0.2px;}
+.clear{clear:both;}
+
+/*body start*/
+.bodybox{width:99%;margin:0px auto;margin-right:auto;padding-bottom: 20px}
+/*body end*/
+
+/*页面 头部 start*/
+.phead{border:#b4cfcf 0.2px solid;padding:5px 10px;margin-top:5px;height: 20px}
+/*页面 头部 end*/
+
+/*页面 底部 start*/
+.pfooter{border:#b4cfcf 0.2px solid;padding:5px 10px;margin-top:5px;}
+/*页面 底部 end*/
+
+/*table 添加、修改 start*/
+.ftable{margin-top:5px;}
+.ftable tr{height:25px;}
+.ftable tr th{background-color:#F2F2F2;text-align: right;font-weight: normal;;border:#b4cfcf 0.2px solid;}
+.ftable tr td{background-color:#FFFFFF;;border:#b4cfcf 0.2px solid;}
+/*table 添加、修改 end*/
+
+/*table列表 start*/
+.ltable{margin:5px auto 0px auto;}
+.ltablehead th{text-align:center;height:25px;background-image:url(../images/msg_bg.jpg);border:#b4cfcf 0.2px solid;border-top: 0px;border-bottom: 0px}
+.ltablebody{background-color:#FFFFFF;border-top: 0px;}
+.ltablebody tr{height:25px;text-align:left;}
+.ltablebody td{border:#b4cfcf 0.2px solid;}
+.ltablehover{background-color:#F2F2F2;}
+.ltablebody tr:hover{background-color:#FEF3D1;}
+.ltablebottom{margin-top:2px;padding:10px;padding-top:0.2px;height: 20px;border:#b4cfcf 0.2px solid;}
+.over{background:#FEF3D1}
+.alt{background:#ecf6fc}
+/*table列表 end*/

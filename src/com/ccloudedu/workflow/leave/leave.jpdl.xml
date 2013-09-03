@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process description="请假流程" key="leave" name="请假流程" version="1" xmlns="http://jbpm.org/4.4/jpdl">  
+  <start g="334,4,48,48" name="开始">  
+     <transition g="5,-5" name="发起请假" to="填写请假单"/>  
+  </start>  
+  <task assignee="#{applyer}" g="311,69,92,52" name="填写请假单">  
+     <transition g="6,-7" name="判断填写人角色" to="判断角色"/>  
+  </task>  
+   <decision expr="#{roleName}" g="332,147,48,48" name="判断角色">  
+      <transition g="6,-11" name="部门经理" to="副总经理审核"/>  
+      <transition g="14,-11" name="副总经理" to="总经理审核"/>
+      <transition g="-57,-16" name="普通员工" to="部门经理审核"/>  
+   </decision>  
+   <task assignee="#{fzjl}" g="311,225,92,52" name="副总经理审核">  
+      <transition g="-34,-18" name="请假大于10天" to="总经理审核"/>
+      <transition g="-87,-13" name="请假不多于10天" to="行政秘书统计考情"/>
+      <transition g="517,366:-39,-38" name="不同意" to="结束"/>  
+   </task>  
+     
+   <task assignee="#{zjl}" g="546,222,92,52" name="总经理审核">
+      <transition g="16,-2" name="同意" to="行政秘书统计考情"/>
+      <transition g="567,371:12,-9" name="不同意" to="结束"/>  
+   </task>  
+   <end g="341,491,48,48" name="结束" state="confirm"/>
+   <task assignee="#{bmjl}" g="84,226,92,52" name="部门经理审核">
+      <transition g="-39,-19" name="请假大于5天" to="副总经理审核"/>
+      <transition g="-74,2" name="请假不多于5天" to="行政秘书统计考情"/>
+      <transition g="169,380:-42,-12" name="不同意" to="结束"/>
+   </task>
+   <task assignee="#{xzms}" g="294,319,129,52" name="行政秘书统计考情">
+      <transition g="6,-3" name="发送财务" to="财务经理"/>
+   </task>
+   <task assignee="#{cwjl}" g="316,404,92,52" name="财务经理">
+      <transition g="6,-8" name="财务完成" to="结束"/>
+   </task>  
+ </process>

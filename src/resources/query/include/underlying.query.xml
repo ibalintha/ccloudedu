@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<queryMapping>
+	<!-- 查询所有功能模块 -->
+	<query name="underlying.findAllModules">
+       <hql>
+          <![CDATA[
+          	SELECT	dm.module
+          	FROM	ChDatadictionaryMenu dm
+          	GROUP BY	dm.module
+          ]]>
+       </hql>
+    </query> 
+    
+    <!-- 查询字典菜单 -->
+    <query name="underlying.findDictionaryMenu">
+       <hql>
+          <![CDATA[
+			FROM	ChDatadictionaryMenu dm
+			WHERE	1=1
+			<#if menu??>
+				AND dm.dictMenu = :menu
+			</#if>
+			<#if module??>
+				AND dm.module = :module 
+			</#if>
+          ]]>
+       </hql>
+    </query> 
+    
+   <!-- 查询字典菜单
+    <query name="underlying.findDictMenu">
+       <hql>
+          <![CDATA[
+			SELECT	dd.chDadtMenu
+			FROM	ChDatadictionary dd
+			WHERE	1=1
+			<#if module??>
+				AND	dd.chDadtModule=:module
+			</#if>
+			GROUP BY	dd.chDadtMenu
+			]]>
+       </hql>
+    </query>  -->
+    
+    <!-- 查询数据字典 -->
+    <query name="underlying.findDataDictionary">
+       <hql>
+          <![CDATA[
+			FROM	ChDatadictionary dd
+			WHERE	1=1
+			<#if id??>
+				AND	dd.id=:id
+			</#if>
+			<#if menu??>
+				AND	dd.chDadtMenu=:menu
+			</#if>
+			<#if syscode??>
+				AND	dd.chDadtSyscode=:syscode
+			</#if>
+			<#if educode??>
+				AND	dd.chDadtEducode=:educode
+			</#if>
+			<#if dictname??>
+				AND	dd.chDadtName=:dictname
+			</#if>
+			ORDER BY dd.id
+			]]>
+       </hql>
+    </query> 
+    
+    
+     <!-- 按条件查询用户 -->
+    <query name="campus.findCampus">
+       <hql>
+          <![CDATA[
+            select cam from ChCampus as cam 
+            where 1=1 
+            <#if chCampCode??>
+           		and cam.chCampCode like :chCampCode 
+	        </#if> 
+	        <#if chCampName??>
+	            and cam.chCampName like :chCampName
+	        </#if> 
+	        <#if chCampDesc??>
+	            and cam.chCampDesc like :chCampDesc
+	        </#if>
+	        <#if chCampAddress??>
+	            and cam.chCampAddress like :chCampAddress
+	        </#if>
+	        <#if id??>
+	            and cam.id = :id
+	        </#if>
+	        order by cam.chCampCode desc
+          ]]>
+       </hql>
+    </query>
+    
+      
+</queryMapping>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<package name="underlying" extends="default" namespace="/underlying">
+	     <!-- 工作流部署删除 -->
+	     <action name="dictionary_*" class="underlying.action.Dictionary" method="{1}">
+	         <result name="list">/WEB-INF/jsp/underlying/dictionary.jsp</result>
+	         <result name="add">/WEB-INF/jsp/underlying/addDictionary.jsp</result>
+	     </action>
+	     
+	     <!-- 校区信息 -->
+	     <action name="campus_*" class="campus.action.campusAction" method="{1}">
+	         <result name="list">/WEB-INF/jsp/underlying/chcampus.jsp</result> 
+	          <result name="add">/WEB-INF/jsp/underlying/addCampus.jsp</result>
+	           <result name="edit">/WEB-INF/jsp/underlying/addCampus.jsp</result>
+	          
+	    </action> 
+
+	</package>
+	
+</struts>

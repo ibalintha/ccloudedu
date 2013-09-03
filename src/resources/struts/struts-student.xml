@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts> 
+	<package name="student" extends="default" namespace="/student"> 
+	     <!-- 学生管理 -->
+	    <action name="student_*" class="student.action.StudentAction" method="{1}">
+	         <result name="update">/WEB-INF/jsp/student/editStudent.jsp</result>
+	         <result name="list">/WEB-INF/jsp/student/listStudent.jsp</result>
+	         <result name="add">/WEB-INF/jsp/student/addStudent.jsp</result>
+	         <result name="tree">/WEB-INF/jsp/student/studentTree.jsp</result>
+	         <result name="setDesk">/WEB-INF/jsp/student/setDesk.jsp</result>
+	         <result name="chooseUser">/WEB-INF/jsp/student/chooseStudent.jsp</result>
+	         <result name="userBasicInfo">/WEB-INF/jsp/student/studentBasicInfo.jsp</result>
+	         <result name="userPicture">/WEB-INF/jsp/student/studentPicture.jsp</result>
+	         <result name="showUserInfo">/WEB-INF/jsp/student/showStudentInfo.jsp</result>
+	    	 <result name="noautoStudents">/WEB-INF/jsp/student/manualStudent.jsp</result>
+	    	 <result name="autoStudents">/WEB-INF/jsp/student/autoStudent.jsp</result>
+	    	 <result name="generateSchcode">/WEB-INF/jsp/student/generateStudent.jsp</result>
+	    	 <result name="queryStudents">/WEB-INF/jsp/student/queryStudent.jsp</result>
+	         <result name="ethnic">/WEB-INF/jsp/student/ethnic.jsp</result>
+	 	   	 <result name="exportmanager">/WEB-INF/jsp/student/stuExportManage.jsp</result>
+	 
+	    </action>  
+	    
+	     <action name="test_*" class="student.action.TestAction" method="{1}">
+	         <result name="test">/WEB-INF/jsp/student/user/userDetail.jsp</result> 
+	    </action> 
+	    
+	    <!-- 学籍（enrolment）管理 -->
+	    <action name="enrolment_*" class="student.action.EnrolmentAction" method="{1}">
+	         	<!-- 学生管理中学籍管理按钮对应的action -->
+	         <result name="tree">/WEB-INF/jsp/student/enrolmentTree.jsp</result>
+	         <result name="list">/WEB-INF/jsp/student/enrolmentList.jsp</result>
+	         <result name="addFamily">/WEB-INF/jsp/student/addFamily.jsp</result>
+	         
+	         <result name="update">/WEB-INF/jsp/student/addStudent.jsp</result>	         
+	         <result name="addin">/WEB-INF/jsp/student/addEnrolment.jsp</result>	        
+	         <result name="setDesk">/WEB-INF/jsp/student/setDesk.jsp</result>
+	         <result name="chooseUser">/WEB-INF/jsp/student/chooseStudent.jsp</result>
+	         <result name="userBasicInfo">/WEB-INF/jsp/student/studentBasicInfo.jsp</result>
+	         <result name="userPicture">/WEB-INF/jsp/student/studentPicture.jsp</result>
+	         <result name="showUserInfo">/WEB-INF/jsp/student/showStudentInfo.jsp</result>
+	    	 <result name="noautoStudents">/WEB-INF/jsp/student/manualStudent.jsp</result>
+	    	 <result name="autoStudents">/WEB-INF/jsp/student/autoStudent.jsp</result>
+	    	 <result name="generateSchcode">/WEB-INF/jsp/student/generateStudent.jsp</result>
+	    	 <result name="queryEnrolment">/WEB-INF/jsp/student/queryEnrolment.jsp</result>
+	    	 <result name="reOrder">/WEB-INF/jsp/student/reOrder.jsp</result>
+	    	 
+	    </action>   
+	    <!-- 新增家庭信息 -->
+	    <action name="addfamily_*" class="student.action.FamilyInfoAction" method="{1}">
+	         	<!-- 学生管理中学籍管理按钮对应的action -->
+	         <result name="add">/WEB-INF/jsp/student/addFamily.jsp</result>
+	         <result name="edit">/WEB-INF/jsp/student/editFamily.jsp</result>
+	          <result name="update">/WEB-INF/jsp/student/editFamily.jsp</result>
+	    </action>
+	    <!-- 照相 -->
+	    <action name="camera_*" class="student.action.CameraAction" method="{1}">	         
+	         <result name="open">/WEB-INF/jsp/student/camera.jsp</result>
+	         <result name="edit">/WEB-INF/jsp/student/editFamily.jsp</result>
+	         <result name="update">/WEB-INF/jsp/student/editFamily.jsp</result>
+	    </action>    
+
+	</package>	
+</struts>
