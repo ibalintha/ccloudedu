@@ -212,7 +212,7 @@
 					<li class="light-blue"><a data-toggle="dropdown" href="#"
 						class="dropdown-toggle"> <img class="nav-user-photo"
 							src="${ctx}/images/user.jpg" alt="Photo" /> <span
-							class="user-info"> <small>欢迎你,</small> root
+							class="user-info"> <small><my:i18n zhText="欢迎您" enText="Welcome You"/>,</small>  <my:i18n zhText="${user.chUsername}" enText="${user.chUsername}"/>
 						</span> <i class="icon-caret-down"></i>
 					</a>
 
@@ -226,7 +226,7 @@
 
 							<li class="divider"></li>
 
-							<li><a href=""> <i class="icon-off"></i> 退出
+							<li><a href="${ctx }/login/login_logout.do"><i class="icon-off"></i><my:i18n zhText="注销" enText="Logout"/> 
 							</a></li>
 						</ul></li>
 				</ul>
