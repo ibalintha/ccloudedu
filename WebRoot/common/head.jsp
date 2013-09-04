@@ -44,4 +44,7 @@
 
 <link rel="stylesheet" type="text/css" href="${ctx}/css/easyui/metro/easyui.css" id="swicth-style">
 <script type="text/javascript" src="${ctx}/js/jquery.easyui.min.js"></script>
+<script src="${ctx}/js/bootstrap.min.js"></script>
+<script src="${ctx}/js/ace-elements.min.js"></script>
+<script src="${ctx}/js/ace.min.js"></script>
 
