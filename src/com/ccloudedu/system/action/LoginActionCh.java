@@ -1,12 +1,7 @@
 package com.ccloudedu.system.action;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -36,7 +31,6 @@ import com.ccloudedu.system.entity.SysRuleSetting;
 import com.ccloudedu.system.entity.UserLoginLog;
 import com.ccloudedu.system.service.RecordService;
 import com.ccloudedu.system.service.RoleService;
-import com.ccloudedu.system.service.RolefuncService;
 import com.ccloudedu.system.service.RuleSettingService;
 import com.ccloudedu.system.service.UserLoginLogService;
 import com.ccloudedu.system.service.UserServiceCh;
@@ -75,8 +69,6 @@ public class LoginActionCh extends ActionSupport{
 	private RoleService roleService;
 	@Autowired
 	private RecordService recordService;
-	@Autowired
-	private RolefuncService roleFuncService;
 	//@Autowired
 	//private MyMailSender myMailSender;
 	
@@ -120,7 +112,7 @@ public class LoginActionCh extends ActionSupport{
             }else{
             	 //非cookie登录
             	System.out.println(EncodeUtils.encodeMd5(password));
-            	 paramMap = new FastMap().newHashMap().set("loginName",loginName).set("passWord","111111");
+            	 paramMap = new FastMap().newHashMap().set("loginName",loginName).set("passWord",EncodeUtils.encodeMd5(password));
             	 chUser = userService.findOne("system.findChUsers",paramMap); 
             	 if(chUser!=null&&"锁定".equals(chUser.getChUserState())){
                 		Renders.renderJson(new JsonResult("该用户已被锁定.请联系管理员！"));
@@ -154,20 +146,11 @@ public class LoginActionCh extends ActionSupport{
             	List<ChRole> chRoles = new ArrayList<ChRole>(0);
             	String roleIds = chUser.getChUserRoleids();
     			if (roleIds != null) {
-    				String[] roleID = roleIds.split(", ");
-    				Map<String, Integer> map = new HashMap<String,Integer>();
-    				
-    				for (String roleid : roleID) {
-    					int funcNum = roleFuncService.findCount("system.getCountFuncNumByRoleId", new FastMap().newHashMap().set("roleId", roleid));
-    					map.put(roleid, funcNum);
-    				}
-    				 
-    				Map<String ,Integer> result = sortByValue(map);
-    				
-    				for(Map.Entry<String,Integer> entry : result.entrySet()){   
-    			          ChRole role = roleService.get(entry.getKey());
-    			          chRoles.add(role);
-    				}  
+	    				String[] roleID = roleIds.split(", ");
+	    				for (String roleid : roleID) {
+	    					ChRole cR = roleService.get(roleid);
+	    					chRoles.add(cR);
+	    				}
 	    				chUser.setChRoles(chRoles);
 	    				chUser.setChRole(chUser.getChRoles().get(0));
 	    				chUser.setRoleId(chUser.getChRoles().get(0).getId());
@@ -239,24 +222,6 @@ public class LoginActionCh extends ActionSupport{
         }   */
         return "logout";   
     }
-	
-	@SuppressWarnings("unchecked")
-    public static Map<String, Integer> sortByValue(Map<String, Integer> map) {
-	        List<Integer> list = new LinkedList(map.entrySet());
-	        Collections.sort(list, new Comparator() {
-	            public int compare(Object o1, Object o2) {
-	                return ((Comparable) ((Map.Entry) (o2)).getValue())
-	                        .compareTo(((Map.Entry) (o1)).getValue());
-	            }
-	        });
-	        Map result = new LinkedHashMap();
-
-	        for (Iterator it = list.iterator(); it.hasNext();) {
-	            Map.Entry entry = (Map.Entry) it.next();
-	            result.put(entry.getKey(), entry.getValue());
-	        }
-	        return result;
-	    }
     //--------------------以下是getter/setter方法----------------------------------------
    
     public String getLoginName() {   
