@@ -324,78 +324,78 @@
 		
 		
 		
-<ul class="nav nav-list">
-		<c:forEach items="${menuList}" var="menu">
-			<li>
-				<a href="#" class="dropdown-toggle">
-					<i class="icon-dashboard"></i>
-					<span class=""><my:i18n zhText="${menu.chFuncName}" enText="${menu.chFuncName}"/></span>
-					<b class="arrow icon-angle-down"></b>
-				</a>
-			   		<c:set value="${menu.subList}" var="subList"></c:set>
-			           <% 
-			              List list = (List)pageContext.getAttribute("subList"); ; 
-			              if(list!=null && list.size()>0){
-			           %>
-			          	<ul class="submenu">
-			          	<%
-			              }
-			           %>	
-		          		 <c:forEach items="${menu.subList}" var="subMenu">
-			           	
-							 	<li>									<c:set value="${subMenu.subList}" var="subSubList"></c:set>
-							 	
-							 	<% 
-						              List sublist = (List)pageContext.getAttribute("subSubList"); ; 
-						              if(sublist!=null && sublist.size()>0){
-						           %>
-						          	
-									<a href="#" class="dropdown-toggle">
-						          	<%
-						              }else{
-						           %>
-						           	<a href="#">
-						           <%} %>
-										<i class="icon-double-angle-right"></i>
-										<my:i18n zhText="${subMenu.chFuncName}" enText="${subMenu.chFuncName}"/>
-									</a>
-									<% 
-						              if(sublist!=null && sublist.size()>0){
-						           %>
-						          	<ul class="submenu">
-						          	<%
-						              }
-						           %>
-									<c:forEach items="${subMenu.subList}" var="subSubMenu">
-						           
-						           <li>
-									<a href="#">
-										<i class="icon-double-angle-right"></i>
-										<my:i18n zhText="${subSubMenu.chFuncName}" enText="${subSubMenu.chFuncName}"/>
-									</a>
-									</li>
-									</c:forEach>
+		<ul class="nav nav-list">
+			<c:forEach items="${menuList}" var="menu">
+				<li>
+					<a href="#" class="dropdown-toggle">
+						<i class="icon-dashboard"></i>
+						<span class="menu-name"><my:i18n zhText="${menu.chFuncName}" enText="${menu.chFuncName}"/></span>
+						<b class="arrow icon-angle-down"></b>
+					</a>
+				   		<c:set value="${menu.subList}" var="subList"></c:set>
+				           <% 
+				              List list = (List)pageContext.getAttribute("subList"); ; 
+				              if(list!=null && list.size()>0){
+				           %>
+				          	<ul class="submenu">
+				          	<%
+				              }
+				           %>	
+			          		 <c:forEach items="${menu.subList}" var="subMenu">
+				           	
+								 	<li>									<c:set value="${subMenu.subList}" var="subSubList"></c:set>
+								 	
+								 	<% 
+							              List sublist = (List)pageContext.getAttribute("subSubList"); ; 
+							              if(sublist!=null && sublist.size()>0){
+							           %>
+							          	
+										<a href="#" class="dropdown-toggle">
+							          	<%
+							              }else{
+							           %>
+							           	<a href="#">
+							           <%} %>
+											<i class="icon-double-angle-right"></i>
+											<my:i18n zhText="${subMenu.chFuncName}" enText="${subMenu.chFuncName}"/>
+										</a>
 										<% 
 							              if(sublist!=null && sublist.size()>0){
 							           %>
-							          	</ul>
+							          	<ul class="submenu">
 							          	<%
 							              }
 							           %>
-								</li>
-						
-				     	</c:forEach>
-						<% 
-			              if(list!=null && list.size()>0){
-			           %>
-			          	</ul>
-			          	<%
-			              }
-			           %>
-	            
-			  </li>
-		  </c:forEach>
-</ul>
+										<c:forEach items="${subMenu.subList}" var="subSubMenu">
+							           
+							           <li>
+										<a href="#">
+											<i class="icon-double-angle-right"></i>
+											<my:i18n zhText="${subSubMenu.chFuncName}" enText="${subSubMenu.chFuncName}"/>
+										</a>
+										</li>
+										</c:forEach>
+											<% 
+								              if(sublist!=null && sublist.size()>0){
+								           %>
+								          	</ul>
+								          	<%
+								              }
+								           %>
+									</li>
+							
+					     	</c:forEach>
+							<% 
+				              if(list!=null && list.size()>0){
+				           %>
+				          	</ul>
+				          	<%
+				              }
+				           %>
+		            
+				  </li>
+			  </c:forEach>
+		</ul>
 		<!--/.nav-list-->
 		<div class="sidebar-collapse" id="sidebar-collapse">
 			<i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
